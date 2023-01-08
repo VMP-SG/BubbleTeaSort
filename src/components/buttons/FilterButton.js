@@ -6,7 +6,7 @@ export default function ({ onPress, children }) {
     <TouchableOpacity
       onPress={onPress}
       style={{
-        width: 125,
+        width: 140,
         height: 50,
         justifyContent: "center",
         alignItems: "center",
@@ -18,7 +18,7 @@ export default function ({ onPress, children }) {
     >
       <View
         style={{
-          width: 125,
+          width: 140,
           height: 50,
           borderRadius: 10,
           justifyContent: "center",

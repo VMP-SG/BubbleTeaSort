@@ -10,13 +10,26 @@ const DiscoverNavigator = () => {
   const currentUser = auth.currentUser;
 
   return (
-    <Stack.Navigator initialRouteName={"Discover"}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName={"DiscoverMain"}
+    >
+      <Stack.Screen name="DiscoverMain" component={DiscoverScreen} />
       <Stack.Screen
-        options={{ headerShown: false }}
-        name="Discover"
-        component={DiscoverScreen}
+        options={{
+          title: "",
+          headerShown: true,
+          headerBackTitle: "",
+          headerTintColor: "black",
+          headerTitleStyle: {
+            fontFamily: "Comfortaa_400Regular",
+          },
+        }}
+        name="DiscoverFilter"
+        component={DiscoverFilter}
       />
-      <Stack.Screen name="DiscoverFilter" component={DiscoverFilter} />
     </Stack.Navigator>
   );
 };
