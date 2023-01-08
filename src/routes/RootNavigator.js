@@ -1,14 +1,18 @@
-import React from 'react'
+import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeScreen from "../screens/HomeScreen";
 import SearchScreen from "../screens/SearchScreen";
 import NewPostScreen from "../screens/NewPostScreen";
-import ExploreScreen from "../screens/ExploreScreen";
+import DiscoverNavigator from "./DiscoverNavigator";
 import MidFAB from "../components/buttons/MidFAB";
 import ProfileNavigator from "./ProfileNavigator";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Text, View } from 'react-native';
-import { HomeIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/outline';
+import { Text, View } from "react-native";
+import {
+  HomeIcon,
+  MagnifyingGlassIcon,
+  UserIcon,
+} from "react-native-heroicons/outline";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +27,7 @@ const RootNavigator = () => {
           backgroundColor: "#BCA480",
           position: "absolute",
           borderTopWidth: 0,
-        }
+        },
       })}
     >
       <Tab.Screen
@@ -31,11 +35,19 @@ const RootNavigator = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <View className={`bg-gray-light rounded-full h-10 w-10 items-center justify-center ${focused ? "bottom-1" : "top-2"}`}>
+            <View
+              className={`bg-gray-light rounded-full h-10 w-10 items-center justify-center ${
+                focused ? "bottom-1" : "top-2"
+              }`}
+            >
               <HomeIcon size={size} color={color} strokeWidth={2} />
             </View>
           ),
-          tabBarLabel: ({ focused }) => (<Text className='font-primary text-gray-light text-xs'>{focused ? "Home" : ""}</Text>),
+          tabBarLabel: ({ focused }) => (
+            <Text className="font-primary text-gray-light text-xs">
+              {focused ? "Home" : ""}
+            </Text>
+          ),
         }}
       />
       <Tab.Screen
@@ -43,11 +55,19 @@ const RootNavigator = () => {
         component={SearchScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <View className={`bg-gray-light rounded-full h-10 w-10 items-center justify-center ${focused ? "bottom-1" : "top-2"}`}>
+            <View
+              className={`bg-gray-light rounded-full h-10 w-10 items-center justify-center ${
+                focused ? "bottom-1" : "top-2"
+              }`}
+            >
               <MagnifyingGlassIcon size={size} color={color} strokeWidth={2} />
             </View>
           ),
-          tabBarLabel: ({ focused }) => (<Text className='font-primary text-gray-light text-xs'>{focused ? "Search" : ""}</Text>),
+          tabBarLabel: ({ focused }) => (
+            <Text className="font-primary text-gray-light text-xs">
+              {focused ? "Search" : ""}
+            </Text>
+          ),
         }}
       />
       <Tab.Screen
@@ -62,11 +82,15 @@ const RootNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Explore"
-        component={ExploreScreen}
+        name="DiscoverNavigator"
+        component={DiscoverNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <View className={`bg-gray-light rounded-full h-10 w-10 items-center justify-center ${focused ? "bottom-1" : "top-2"}`}>
+            <View
+              className={`bg-gray-light rounded-full h-10 w-10 items-center justify-center ${
+                focused ? "bottom-1" : "top-2"
+              }`}
+            >
               <MaterialCommunityIcons
                 name="compass-outline"
                 color={color}
@@ -74,7 +98,12 @@ const RootNavigator = () => {
               />
             </View>
           ),
-          tabBarLabel: ({ focused }) => (<Text className='font-primary text-gray-light text-xs'>{focused ? "Explore" : ""}</Text>),
+          tabBarLabel: ({ focused }) => (
+            <Text className="font-primary text-gray-light text-xs">
+              {focused ? "Discover" : ""}
+            </Text>
+          ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -82,16 +111,24 @@ const RootNavigator = () => {
         component={ProfileNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <View className={`bg-gray-light rounded-full h-10 w-10 items-center justify-center ${focused ? "bottom-1" : "top-2"}`}>
+            <View
+              className={`bg-gray-light rounded-full h-10 w-10 items-center justify-center ${
+                focused ? "bottom-1" : "top-2"
+              }`}
+            >
               <UserIcon size={size} color={color} strokeWidth={2} />
             </View>
           ),
-          tabBarLabel: ({ focused }) => (<Text className='font-primary text-gray-light text-xs'>{focused ? "Profile" : ""}</Text>),
-          headerShown: false
+          tabBarLabel: ({ focused }) => (
+            <Text className="font-primary text-gray-light text-xs">
+              {focused ? "Profile" : ""}
+            </Text>
+          ),
+          headerShown: false,
         }}
       />
     </Tab.Navigator>
-  )
-}
+  );
+};
 
 export default RootNavigator;
