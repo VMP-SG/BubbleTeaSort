@@ -1,30 +1,150 @@
-import { View, Text, SafeAreaView, ScrollView, Image, Pressable } from 'react-native'
-import React from "react";
-import { auth } from '../../utils/firebase'
+import { View, Text, SafeAreaView, Image, Pressable, ScrollView, Dimensions } from 'react-native'
+import React, { useEffect, useState } from "react";
+import { auth, db } from '../../utils/firebase'
 import { Cog6ToothIcon } from 'react-native-heroicons/outline'
 import useProfilePicture from '../../hooks/useProfilePicture'
+import ToggleBar from '../../components/ToggleBar';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { CurrencyDollarIcon } from 'react-native-heroicons/solid';
+import { ContributionGraph } from 'react-native-chart-kit';
+import ActivityGraph from '../../components/ActivityGraph';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { getCommitsData } from '../../utils/profile';
+
+const SummaryView = ({ posts }) => {
+
+  const commitsData = getCommitsData(posts);
+
+  // left top right bottom
+  const percentages = [33, 25, 25, 17]
+
+  return (
+    <View className='px-4 py-6'>
+      <Text className='font-primary-bold text-2xl mb-2'>Past Month</Text>
+      <View className='flex-row'>
+        <View className='flex-1 mr-4 bg-brown-400 items-center py-4 rounded-xl'>
+          <View className='rounded-full w-12 h-12 items-center justify-center bg-brown-500 border'>
+            <MaterialCommunityIcons
+              name='beer'
+              size={24}
+            />
+          </View>
+          <View className='flex-row items-end mt-2'>
+            <Text className="font-primary text-3xl">3 </Text>
+            <Text className='font-primary text-xl'>Cups</Text>
+          </View>
+          <Text className='font-secondary text-xl text-gray-light-transparent'>In Total</Text>
+        </View>
+        <View className='flex-1 bg-brown-400 items-center py-4 rounded-xl'>
+          <View className='rounded-full w-12 h-12 items-center justify-center bg-brown-500 border'>
+            <CurrencyDollarIcon color="black" size={32} />
+          </View>
+          <View className='flex-row items-end mt-2'>
+            <Text className='font-primary text-xl'>$</Text>
+            <Text className="font-primary text-3xl">64</Text>
+          </View>
+          <Text className='font-secondary text-xl text-gray-light-transparent'>Spent</Text>
+        </View>
+      </View>
+      <Text className='font-primary-bold text-2xl mt-6 mb-2'>Cups</Text>
+      <ScrollView className='rounded-xl bg-brown-400 w-full pb-4' horizontal={true}>
+        <View>
+          <ContributionGraph 
+            values={commitsData}
+            height={118}
+            width={575}
+            chartConfig={{
+              backgroundGradientFrom: "#FFFFFF",
+              backgroundGradientFromOpacity: 0,
+              backgroundGradientTo: "#FFFFFF",
+              backgroundGradientToOpacity: 0,
+              fillShadowGradientFrom: "#FFFFFF",
+              color: (opacity = 1) => `rgba(64, 47, 31, ${opacity})`,
+              labelColor: (opacity = 0.44) => `rgba(00, 00, 00, ${opacity})`,
+              propsForLabels: {
+                translateY: 24
+              },
+            }}
+            numDays={365}
+            gutterSize={2}
+            squareSize={8}
+            showOutOfRangeDays={true}
+            style={{
+              marginLeft: -15,
+              marginTop: -15,
+            }}
+          />
+          <View className='flex-row mt-2 items-center'>
+            <Text className='ml-4 text-xs mr-2'>Less</Text>
+            <View className='bg-brown-500 h-2 w-2 mr-[2]' />
+            <View className='bg-brown-600 h-2 w-2 mr-[2]' />
+            <View className='bg-brown-700 h-2 w-2 mr-[2]' />
+            <View className='bg-brown-800 h-2 w-2 mr-[2]' />
+            <View className='bg-brown-900 h-2 w-2' />
+            <Text className='ml-2 text-xs'>More</Text>
+          </View>
+        </View>
+      </ScrollView>
+      <Text className='font-primary-bold text-2xl mt-6 mb-2'>Activity</Text>
+      <View className='rounded-xl bg-brown-400 w-full p-4 justify-center items-center mb-16'>
+        <Text className='font-secondary text-base text-gray-light-transparent'>25%</Text>
+        <Text className='font-primary text-base'>LiHo</Text>
+        <View className='flex-row items-center'>
+          <View className='flex-1'>
+            <Text className='font-secondary text-base text-gray-light-transparent text-right'>33%</Text>
+            <Text className='font-primary text-base text-right'>iTea</Text>
+          </View>
+          <ActivityGraph percentages={percentages} />
+          <View className='flex-1'>
+            <Text className='font-secondary text-base text-gray-light-transparent text-left'>25%</Text>
+            <Text className='font-primary text-base text-left'>Others</Text>
+          </View>
+        </View>
+        <Text className='font-secondary text-base text-gray-light-transparent mt-[-2]'>17%</Text>
+        <Text className='font-primary text-base'>GongCha</Text>
+      </View>
+    </View>
+  )
+}
 
 const ProfileScreen = ({ route, navigation }) => {
   const profilePictureUrl = useProfilePicture(!route.params || !route.params.photoURL ? undefined : route.params.photoURL);
   const username = !route.params || !route.params.displayName ? auth.currentUser.displayName : route.params.displayName;
-  
+  const [showSummary, setShowSummary] = useState(false);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    (async() => {
+      const q = query(collection(db, "Post"), where("author", "==", auth.currentUser.uid));
+      const querySnapshot = await getDocs(q);
+      const queriedPostData = []
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        queriedPostData.push(doc.data());
+      });
+      setPosts(queriedPostData);
+    })()
+  },[])
+
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1">
       <ScrollView>
         <View className='flex-row items-center py-8'>
           <View className='flex-1 items-center'>
             <Image className='w-24 h-24 rounded-full border' source={profilePictureUrl === null ? require("../../../assets/icons/DefaultProfilePicture.png") : { uri: profilePictureUrl }} />
           </View>
-          <View className='flex-1 justify-start'>
+          <View className='flex-1'>
             <View className='flex-row w-full pr-8 items-center'>
               <Text className='font-primary-bold text-2xl pr-2' numberOfLines={1}>{username}</Text>
               <Pressable onPress={() => navigation.navigate("Settings")} hitSlop={10}>
                 <Cog6ToothIcon color="black" strokeWidth={2} />
               </Pressable>
             </View>
-            <Text className='font-secondary text-base mt-1'>100 Posts</Text>
+            <Text className='font-secondary text-base mt-1'>{posts.length} Post{posts.length === 1 ? "" : "s"}</Text>
           </View>
         </View>
+        <ToggleBar className='bg-brown-400' showLeft={showSummary} setShowLeft={setShowSummary} leftText="Posts" rightText="Summary" />
+        {showSummary && <SummaryView posts={posts} />}
       </ScrollView>
     </SafeAreaView>
   )

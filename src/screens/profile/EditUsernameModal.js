@@ -34,7 +34,7 @@ const EditUsernameModal = ({ navigation, visible, onClose }) => {
             <Text className='text-center font-primary-bold text-xl'>Edit Username</Text>
             <Image className='w-24 h-24 rounded-full border self-center mt-3' source={profilePictureUrl === null ? require("../../../assets/icons/DefaultProfilePicture.png") : { uri: profilePictureUrl }} />
             <Text className='font-primary-light text-base mt-3'>Username</Text>
-            <TextInput editable className='p-2 border border-[#D9D9D9] rounded-md w-full mt-1 font-secondary-bold' value={username} onChangeText={text => setUsername(text)} />
+            <TextInput editable className='p-2 border border-gray rounded-md w-full mt-1 font-secondary-bold' value={username} onChangeText={text => setUsername(text)} />
             <View className='flex-row mt-3 justify-between'>
               <ModalButton onPress={onClose}>Cancel</ModalButton>
               <ModalButton primary={true} onPress={changeUsernameHandler}>Make Changes</ModalButton>
