@@ -1,5 +1,5 @@
 const sortByDistance = (currentList) => {
-  const newList = [...currentList].sort((a, b) => b.distance - a.distance);
+  const newList = [...currentList].sort((a, b) => a.distance - b.distance);
   return newList;
 };
 
