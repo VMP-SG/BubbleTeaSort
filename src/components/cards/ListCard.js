@@ -3,7 +3,11 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 export default function ({ details }) {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        console.log(details.id);
+      }}
+    >
       <View className="bg-brown-500 mx-4 my-2 p-2 rounded-xl">
         <Text className="font-primary-bold text-xl mb-4">
           {details.brand} @ {details.name}
