@@ -1,8 +1,8 @@
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { useState } from "react";
 import { View, StyleSheet } from "react-native";
 
-export default function () {
+export default function ({ overallList }) {
   const [coords, setCoords] = useState({
     latitude: 1.3521,
     longitude: 103.8198,
@@ -24,7 +24,22 @@ export default function () {
         region={coords}
         onRegionChange={onRegionChange}
         onPanDrag={() => {}}
-      />
+      >
+        {overallList.map((marker, i) => {
+          if (marker?.coordinates?.latitude) {
+            return (
+              <Marker
+                key={i}
+                coordinate={{
+                  latitude: marker.coordinates.latitude,
+                  longitude: marker.coordinates.longitude,
+                }}
+                title={marker.name}
+              />
+            );
+          }
+        })}
+      </MapView>
     </View>
   );
 }
