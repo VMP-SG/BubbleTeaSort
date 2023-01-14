@@ -1,11 +1,15 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function ({ details }) {
+export default function ({ route, navigation, details }) {
   return (
     <TouchableOpacity
       onPress={() => {
-        console.log(details.id);
+        navigation.navigate("DiscoverStore", {
+          id: details.id,
+          rating: details.rating || 0,
+          count: details.count || 0,
+        });
       }}
     >
       <View className="bg-brown-500 mx-4 my-2 p-2 rounded-xl">
@@ -30,7 +34,7 @@ export default function ({ details }) {
             </View>
             <View className="flex flex-row items-center justify-center">
               <MaterialCommunityIcons name="star" color="black" size={30} />
-              <Text>{details?.rating ? details.rating : 0}</Text>
+              <Text>{details?.rating ? details.rating.toFixed(1) : 0}</Text>
             </View>
           </View>
         </View>

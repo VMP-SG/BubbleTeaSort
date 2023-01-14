@@ -7,7 +7,14 @@ export default function ({ route, navigation, overallList }) {
       <View className="mt-28 mb-16">
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           {overallList.map((item, i) => {
-            return <ListCard key={i} details={item} />;
+            return (
+              <ListCard
+                route={route}
+                navigation={navigation}
+                key={i}
+                details={item}
+              />
+            );
           })}
         </ScrollView>
       </View>
