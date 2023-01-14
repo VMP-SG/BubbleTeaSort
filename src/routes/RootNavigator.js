@@ -1,14 +1,18 @@
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import HomeNavigator from './HomeNavigator';
-import SearchNavigator from './SearchNavigator';
+import HomeNavigator from "./HomeNavigator";
+import SearchNavigator from "./SearchNavigator";
 import NewPostScreen from "../screens/NewPostScreen";
 import DiscoverNavigator from "./DiscoverNavigator";
 import MidFAB from "../components/buttons/MidFAB";
 import ProfileNavigator from "./ProfileNavigator";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text, View } from "react-native";
-import { HomeIcon, MagnifyingGlassIcon, UserIcon } from "react-native-heroicons/outline";
+import {
+  HomeIcon,
+  MagnifyingGlassIcon,
+  UserIcon,
+} from "react-native-heroicons/outline";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,6 +21,9 @@ const RootNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         // headerShown: false,
+        headerTitleStyle: {
+          fontFamily: "Comfortaa_400Regular",
+        },
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "white",
         tabBarStyle: {
@@ -39,8 +46,12 @@ const RootNavigator = () => {
               <HomeIcon size={size} color={color} strokeWidth={2} />
             </View>
           ),
-          tabBarLabel: ({ focused }) => (<Text className='font-primary text-gray-light text-xs'>{focused ? "Home" : ""}</Text>),
-          headerShown: false
+          tabBarLabel: ({ focused }) => (
+            <Text className="font-primary text-gray-light text-xs">
+              {focused ? "Home" : ""}
+            </Text>
+          ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -61,9 +72,9 @@ const RootNavigator = () => {
               {focused ? "Search" : ""}
             </Text>
           ),
-          headerShown: false
+          headerShown: false,
         }}
-        />
+      />
       <Tab.Screen
         name="New Post"
         component={NewPostScreen}
