@@ -8,11 +8,19 @@ import {
   Image,
 } from "react-native";
 import { useEffect, useState } from "react";
+import {
+  PlusIcon as PlusIconOutline,
+  ChevronDownIcon as ChevronDownIconOutline,
+} from "react-native-heroicons/outline";
 import Input from "../components/inputs/Input";
+import { Dropdown, MultiSelect } from "react-native-element-dropdown";
 
 const NewPostScreen = ({ navigation }) => {
   const [store, setStore] = useState("");
+  const [storeData, setStoreData] = useState([]);
+  const [storeList, setStoreList] = useState([]);
   const [flavours, setFlavours] = useState([]);
+  const [flavoursList, setFlavoursList] = useState([]);
   const [photoUri, setPhotoUri] = useState("");
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState(0);
@@ -20,6 +28,8 @@ const NewPostScreen = ({ navigation }) => {
   const [comments, setComments] = useState("");
 
   const imagePickerHandler = async () => {};
+
+  const storeHandler = async () => {};
 
   const getStars = (rating) => {};
 
@@ -82,6 +92,60 @@ const NewPostScreen = ({ navigation }) => {
             </View>
             <View className="mb-6 w-full">
               <Text className="font-primary-bold text-xl">Store</Text>
+              <Dropdown
+                value={store}
+                data={storeList}
+                labelField={"label"}
+                valueField={"value"}
+                placeholder={"Select"}
+                autoScroll={false}
+                maxHeight={276}
+                search={true}
+                searchPlaceholder="Search..."
+                onChange={(item) => {
+                  setStore(item.value);
+                  storeHandler(item);
+                }}
+                style={{
+                  borderWidth: 0,
+                  borderBottomWidth: 1,
+                  borderBottomColor: "#00000071",
+                }}
+                containerStyle={{
+                  backgroundColor: "#EADAC1",
+                }}
+                itemContainerStyle={{
+                  backgroundColor: "#EADAC1",
+                  borderTopWidth: 1,
+                  borderColor: "#CEB195",
+                }}
+                itemTextStyle={{
+                  fontFamily: "Raleway_400Regular",
+                  fontSize: "16px",
+                  color: "#1D1D26",
+                }}
+                activeColor={"#CEB195"}
+                placeholderStyle={{
+                  fontFamily: "Raleway_400Regular",
+                  fontSize: "16px",
+                  color: "#00000071",
+                }}
+                selectedTextStyle={{
+                  fontFamily: "Raleway_400Regular",
+                  fontSize: "16px",
+                  color: "#000000",
+                }}
+                inputSearchStyle={{
+                  backgroundColor: "#EADAC1",
+                  fontFamily: "Raleway_400Regular",
+                  fontSize: "16px",
+                  color: "#00000071",
+                  padding: 3,
+                }}
+                renderRightIcon={() => {
+                  return <ChevronDownIconOutline color="#00000071" />;
+                }}
+              />
             </View>
             <View className="mb-6">
               <Text className="font-primary-bold text-xl">Price</Text>
@@ -102,6 +166,75 @@ const NewPostScreen = ({ navigation }) => {
             </View>
             <View className="w-full mb-6">
               <Text className="mb-1 font-primary-bold text-xl">Flavour(s)</Text>
+              <MultiSelect
+                value={flavours}
+                data={flavoursList}
+                labelField={"label"}
+                valueField={"value"}
+                placeholder={""}
+                autoScroll={false}
+                inside={true}
+                maxHeight={276}
+                search={true}
+                searchPlaceholder="Search..."
+                onChange={(item) => {
+                  setFlavours(item);
+                }}
+                renderSelectedItem={(item) => {
+                  return (
+                    <View className="flex-row mr-2 my-1 px-4 py-2 rounded-[20px] bg-[#EADAC1] border-0 h-[35]">
+                      <Text className="font-secondary">{item.label}</Text>
+                    </View>
+                  );
+                }}
+                style={{
+                  marginBottom: 4,
+                  minHeight: 43,
+                }}
+                containerStyle={{
+                  backgroundColor: "#EADAC1",
+                }}
+                itemContainerStyle={{
+                  backgroundColor: "#EADAC1",
+                  borderTopWidth: 1,
+                  borderColor: "#CEB195",
+                }}
+                itemTextStyle={{
+                  fontFamily: "Raleway_400Regular",
+                  fontSize: "16px",
+                  color: "#1D1D26",
+                }}
+                activeColor={"#CEB195"}
+                placeholderStyle={{
+                  height: 35,
+                }}
+                inputSearchStyle={{
+                  backgroundColor: "#EADAC1",
+                  fontFamily: "Raleway_400Regular",
+                  fontSize: "16px",
+                  color: "#00000071",
+                  padding: 3,
+                }}
+                renderLeftIcon={() => {
+                  return (
+                    <View
+                      style={{
+                        marginRight: 8,
+                        backgroundColor: "#EADAC1",
+                        borderRadius: 20,
+                        width: 35,
+                        height: 35,
+                        flex: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <PlusIconOutline color="#00000071" />
+                    </View>
+                  );
+                }}
+                renderRightIcon={() => {}}
+              />
             </View>
             <View className="mb-10">
               <Text className="font-primary-bold text-xl">Comments</Text>
