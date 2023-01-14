@@ -1,11 +1,11 @@
 import React from 'react'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from '../screens/home/HomeScreen';
-import PostScreen from '../screens/home/PostScreen';
+import SearchScreen from '../screens/search/SearchScreen';
+import PostScreen from '../screens/search/PostScreen';
 
 const Stack = createNativeStackNavigator();
 
-const HomeNavigator = () => {
+const SearchNavigator = () => {
 
   return (
     <Stack.Navigator
@@ -16,11 +16,14 @@ const HomeNavigator = () => {
       }}
     >
       <Stack.Screen 
-        name="Home"
-        component={HomeScreen}
+        name="Search"
+        component={SearchScreen}
+        options={{
+          headerShown: false
+        }}
       />
       <Stack.Screen
-        name="HomePost"
+        name="SearchPost"
         component={PostScreen}
         options={({ route }) => ({
           headerBackTitle: "",
@@ -32,4 +35,4 @@ const HomeNavigator = () => {
   )
 }
 
-export default HomeNavigator
+export default SearchNavigator

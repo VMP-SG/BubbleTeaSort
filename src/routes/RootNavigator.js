@@ -1,14 +1,14 @@
 import React from 'react'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeNavigator from './HomeNavigator';
-import SearchScreen from "../screens/SearchScreen";
+import SearchNavigator from './SearchNavigator';
 import NewPostScreen from "../screens/NewPostScreen";
 import ExploreScreen from "../screens/ExploreScreen";
 import MidFAB from "../components/buttons/MidFAB";
 import ProfileNavigator from "./ProfileNavigator";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Text, View } from 'react-native';
-import { HomeIcon, MagnifyingGlassIcon, UserIcon } from 'react-native-heroicons/outline';
+import { Text, View } from "react-native";
+import { HomeIcon, MagnifyingGlassIcon, UserIcon } from "react-native-heroicons/outline";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,17 +40,22 @@ const RootNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Search"
-        component={SearchScreen}
+        name="SearchNavigator"
+        component={SearchNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <View className={`bg-gray-light rounded-full h-10 w-10 items-center justify-center ${focused ? "bottom-1" : "top-2"}`}>
               <MagnifyingGlassIcon size={size} color={color} strokeWidth={2} />
             </View>
           ),
-          tabBarLabel: ({ focused }) => (<Text className='font-primary text-gray-light text-xs'>{focused ? "Search" : ""}</Text>),
+          tabBarLabel: ({ focused }) => (
+            <Text className="font-primary text-gray-light text-xs">
+              {focused ? "Search" : ""}
+            </Text>
+          ),
+          headerShown: false
         }}
-      />
+        />
       <Tab.Screen
         name="New Post"
         component={NewPostScreen}
