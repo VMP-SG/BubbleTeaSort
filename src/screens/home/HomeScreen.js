@@ -51,7 +51,7 @@ const HomeScreen = ({ navigation }) => {
         numColumns={2}
         renderItem={({ item }) => (
           <PostCard
-            onPress={() => navigation.navigate("Post", item)}
+            onPress={() => navigation.navigate("HomePost", item)}
             location={location}
             post={item}
             className="w-[48%]"

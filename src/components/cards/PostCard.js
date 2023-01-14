@@ -12,6 +12,7 @@ import usePostPicture from "../../hooks/usePostPicture";
 import { MapPinIcon, HeartIcon } from "react-native-heroicons/solid";
 import { calcDistance } from "../../utils/location";
 import { nFormatter } from "../../utils/number";
+import { stores } from "../../data/store.js";
 
 // post: Post Document from Firebase
 // location: Location object from getLocation util
@@ -47,18 +48,31 @@ const PostCard = ({ post, location, style, onPress }) => {
 
   useEffect(() => {
     const getStore = async () => {
-      const docRef = doc(db, "Store", post.store_id);
-      const docSnap = await getDoc(docRef);
+      try {
+        const docRef = doc(db, "Store", post.store_id);
+        const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const store = docSnap.data();
-        const distance = calcDistance(
-          location.coords.latitude,
-          location.coords.longitude,
-          store.coordinates.latitude,
-          store.coordinates.longitude
-        );
-        setDistance(distance.toFixed(1));
+        if (docSnap.exists()) {
+          const store = docSnap.data();
+          const distance = calcDistance(
+            location.coords.latitude,
+            location.coords.longitude,
+            store.coordinates.latitude,
+            store.coordinates.longitude
+          );
+          setDistance(distance.toFixed(1));
+        }
+      } catch (error) {
+        const targetStore = stores.find((store) => store.id === post.store_id);
+        if (targetStore) {
+          const distance = calcDistance(
+            location.coords.latitude,
+            location.coords.longitude,
+            targetStore.coordinates.latitude,
+            targetStore.coordinates.longitude
+          );
+          setDistance(distance.toFixed(1));
+        }
       }
     };
     getStore();

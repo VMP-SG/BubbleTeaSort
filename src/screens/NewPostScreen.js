@@ -144,7 +144,6 @@ const NewPostScreen = ({ navigation }) => {
       setPhotoUri(uri);
     }
   };
-
   const postHandler = async () => {
     // upload photo
     const photoUrl = "posts/" + new Date().getTime() + "-media.png";
