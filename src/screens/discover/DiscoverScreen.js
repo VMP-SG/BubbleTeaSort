@@ -48,6 +48,7 @@ const DiscoverScreen = ({ route, navigation }) => {
         // doc.data() is never undefined for query doc snapshots
         queriedPostData.push(doc.data());
       });
+
       for (const post of queriedPostData) {
         if (post.store_id in postCount) {
           postCount[post.store_id]++;
@@ -57,9 +58,11 @@ const DiscoverScreen = ({ route, navigation }) => {
           ratingAvg[post.store_id] = post.rating;
         }
       }
+
       for (const post of Object.keys(postCount)) {
         ratingAvg[post] /= postCount[post];
       }
+
       const q2 = query(collection(db, "Store"));
       const location = await getLocation();
       const querySnapshot2 = await getDocs(q2);
@@ -90,6 +93,8 @@ const DiscoverScreen = ({ route, navigation }) => {
           count,
         });
       });
+
+      queriedStoreData.sort((a, b) => a.distance > b.distance);
       setOverallList(queriedStoreData);
       setOriginalList(queriedStoreData);
     })();

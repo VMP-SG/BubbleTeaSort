@@ -26,6 +26,7 @@ import {
 import { getLocation } from "../../utils/location";
 import { useIsFocused } from "@react-navigation/native";
 import PostCard from "../../components/cards/PostCard";
+import { posts as dataPosts } from "../../data/post";
 
 const SummaryView = ({ posts }) => {
   const commitsData = getCommitsData(posts);
@@ -157,8 +158,8 @@ const PostsView = ({
   posts,
   profilePictureUrl,
   username,
-  showSummary,
-  setShowSummary,
+  showPosts,
+  setShowPosts,
 }) => {
   return (
     <FlatList
@@ -172,8 +173,8 @@ const PostsView = ({
           posts={posts}
           profilePictureUrl={profilePictureUrl}
           username={username}
-          showSummary={showSummary}
-          setShowSummary={setShowSummary}
+          showPosts={showPosts}
+          setShowPosts={setShowPosts}
         />
       }
       data={posts}
@@ -189,8 +190,8 @@ const ProfileTop = ({
   profilePictureUrl,
   navigation,
   posts,
-  showSummary,
-  setShowSummary,
+  showPosts,
+  setShowPosts,
   username,
 }) => {
   return (
@@ -225,8 +226,8 @@ const ProfileTop = ({
       </View>
       <ToggleBar
         className="bg-brown-400"
-        showLeft={showSummary}
-        setShowLeft={setShowSummary}
+        showLeft={showPosts}
+        setShowLeft={setShowPosts}
         leftText="Posts"
         rightText="Summary"
       />
@@ -242,7 +243,7 @@ const ProfileScreen = ({ route, navigation }) => {
     !route.params || !route.params.displayName
       ? auth.currentUser.displayName
       : route.params.displayName;
-  const [showSummary, setShowSummary] = useState(false);
+  const [showPosts, setShowPosts] = useState(true);
   const [posts, setPosts] = useState([]);
   const [location, setLocation] = useState(null);
   const isFocused = useIsFocused();
@@ -258,32 +259,38 @@ const ProfileScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     (async () => {
-      const q = query(
-        collection(db, "Post"),
-        where("author", "==", auth.currentUser.uid)
-      );
-      const querySnapshot = await getDocs(q);
-      const queriedPostData = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        data.timestamp = new Date(data.timestamp.seconds * 1000);
-        queriedPostData.push(data);
-      });
+      let queriedPostData = [];
+      try {
+        const q = query(
+          collection(db, "Post"),
+          where("author", "==", auth.currentUser.uid)
+        );
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          data.timestamp = new Date(data.timestamp.seconds * 1000);
+          queriedPostData.push(data);
+        });
+      } catch (error) {
+        queriedPostData = dataPosts.filter(
+          (post) => post.author === auth.currentUser.uid
+        );
+      }
       setPosts(queriedPostData);
     })();
   }, []); // TODO: add isFocused here
 
   return (
     <SafeAreaView className="flex-1">
-      {showSummary ? (
+      {!showPosts ? (
         <ScrollView>
           <ProfileTop
             navigation={navigation}
             posts={posts}
             profilePictureUrl={profilePictureUrl}
             username={username}
-            showSummary={showSummary}
-            setShowSummary={setShowSummary}
+            showPosts={showPosts}
+            setShowPosts={setShowPosts}
           />
           <SummaryView posts={posts} />
         </ScrollView>
@@ -295,8 +302,8 @@ const ProfileScreen = ({ route, navigation }) => {
             posts={posts}
             profilePictureUrl={profilePictureUrl}
             username={username}
-            showSummary={showSummary}
-            setShowSummary={setShowSummary}
+            showPosts={showPosts}
+            setShowPosts={setShowPosts}
           />
         </View>
       )}
