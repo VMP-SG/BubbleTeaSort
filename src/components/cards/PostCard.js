@@ -12,7 +12,7 @@ import usePostPicture from "../../hooks/usePostPicture";
 import { MapPinIcon, HeartIcon } from "react-native-heroicons/solid";
 import { calcDistance } from "../../utils/location";
 import { nFormatter } from "../../utils/number";
-import { stores } from "../../data/store";
+import { stores } from "../../data/store.js";
 
 // post: Post Document from Firebase
 // location: Location object from getLocation util
