@@ -9,14 +9,25 @@ import { CurrencyDollarIcon } from 'react-native-heroicons/solid';
 import { ContributionGraph } from 'react-native-chart-kit';
 import ActivityGraph from '../../components/ActivityGraph';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { getCommitsData } from '../../utils/profile';
+import { getActivityPercentagesAndLabels, getCommitsData, getCupsInPastMonth, getSpendingInPastMonth } from '../../utils/profile';
 
 const SummaryView = ({ posts }) => {
 
   const commitsData = getCommitsData(posts);
+  const pastMonthCupCount = getCupsInPastMonth(posts);
+  const pastMonthSpending = getSpendingInPastMonth(posts);
+
+  const [labels, setLabels] = useState(["","","",""]);
+  const [percentages, setPercentages] = useState([0, 0, 0, 0]);
 
   // left top right bottom
-  const percentages = [33, 25, 25, 17]
+  useEffect(() => {
+    (async() => {
+      const [fetchedLabels, fetchedPercentages] = await getActivityPercentagesAndLabels(posts);
+      setLabels(fetchedLabels);
+      setPercentages(fetchedPercentages);
+    })()
+  },[])
 
   return (
     <View className='px-4 py-6'>
@@ -30,7 +41,7 @@ const SummaryView = ({ posts }) => {
             />
           </View>
           <View className='flex-row items-end mt-2'>
-            <Text className="font-primary text-3xl">3 </Text>
+            <Text className="font-primary text-3xl">{pastMonthCupCount} </Text>
             <Text className='font-primary text-xl'>Cups</Text>
           </View>
           <Text className='font-secondary text-xl text-gray-light-transparent'>In Total</Text>
@@ -41,18 +52,18 @@ const SummaryView = ({ posts }) => {
           </View>
           <View className='flex-row items-end mt-2'>
             <Text className='font-primary text-xl'>$</Text>
-            <Text className="font-primary text-3xl">64</Text>
+            <Text className="font-primary text-3xl">{pastMonthSpending}</Text>
           </View>
           <Text className='font-secondary text-xl text-gray-light-transparent'>Spent</Text>
         </View>
       </View>
       <Text className='font-primary-bold text-2xl mt-6 mb-2'>Cups</Text>
-      <ScrollView className='rounded-xl bg-brown-400 w-full pb-4' horizontal={true}>
-        <View>
+      <View className='rounded-xl bg-brown-400 w-full pb-4'>
+        <ScrollView horizontal={true} contentOffset={{ x: 220, y: 0 }} showsHorizontalScrollIndicator={false}>
           <ContributionGraph 
             values={commitsData}
             height={118}
-            width={575}
+            width={578}
             chartConfig={{
               backgroundGradientFrom: "#FFFFFF",
               backgroundGradientFromOpacity: 0,
@@ -74,34 +85,34 @@ const SummaryView = ({ posts }) => {
               marginTop: -15,
             }}
           />
-          <View className='flex-row mt-2 items-center'>
-            <Text className='ml-4 text-xs mr-2'>Less</Text>
-            <View className='bg-brown-500 h-2 w-2 mr-[2]' />
-            <View className='bg-brown-600 h-2 w-2 mr-[2]' />
-            <View className='bg-brown-700 h-2 w-2 mr-[2]' />
-            <View className='bg-brown-800 h-2 w-2 mr-[2]' />
-            <View className='bg-brown-900 h-2 w-2' />
-            <Text className='ml-2 text-xs'>More</Text>
-          </View>
+        </ScrollView>
+        <View className='flex-row mt-2 items-center justify-end'>
+          <Text className='text-xs mr-2'>Less</Text>
+          <View className='bg-brown-500 h-2 w-2 mr-[2]' />
+          <View className='bg-brown-600 h-2 w-2 mr-[2]' />
+          <View className='bg-brown-700 h-2 w-2 mr-[2]' />
+          <View className='bg-brown-800 h-2 w-2 mr-[2]' />
+          <View className='bg-brown-900 h-2 w-2' />
+          <Text className='ml-2 text-xs mr-4'>More</Text>
         </View>
-      </ScrollView>
+      </View>
       <Text className='font-primary-bold text-2xl mt-6 mb-2'>Activity</Text>
       <View className='rounded-xl bg-brown-400 w-full p-4 justify-center items-center mb-16'>
-        <Text className='font-secondary text-base text-gray-light-transparent'>25%</Text>
-        <Text className='font-primary text-base'>LiHo</Text>
+        <Text className='font-secondary text-base text-gray-light-transparent'>{percentages[1]}%</Text>
+        <Text className='font-primary text-base'>{labels[1]}</Text>
         <View className='flex-row items-center'>
           <View className='flex-1'>
-            <Text className='font-secondary text-base text-gray-light-transparent text-right'>33%</Text>
-            <Text className='font-primary text-base text-right'>iTea</Text>
+            <Text className='font-secondary text-base text-gray-light-transparent text-right'>{percentages[0]}%</Text>
+            <Text className='font-primary text-base text-right'>{labels[0]}</Text>
           </View>
           <ActivityGraph percentages={percentages} />
           <View className='flex-1'>
-            <Text className='font-secondary text-base text-gray-light-transparent text-left'>25%</Text>
-            <Text className='font-primary text-base text-left'>Others</Text>
+            <Text className='font-secondary text-base text-gray-light-transparent text-left'>{percentages[2]}%</Text>
+            <Text className='font-primary text-base text-left'>{labels[2]}</Text>
           </View>
         </View>
-        <Text className='font-secondary text-base text-gray-light-transparent mt-[-2]'>17%</Text>
-        <Text className='font-primary text-base'>GongCha</Text>
+        <Text className='font-secondary text-base text-gray-light-transparent mt-[-2]'>{percentages[3]}%</Text>
+        <Text className='font-primary text-base'>{labels[3]}</Text>
       </View>
     </View>
   )
@@ -119,8 +130,9 @@ const ProfileScreen = ({ route, navigation }) => {
       const querySnapshot = await getDocs(q);
       const queriedPostData = []
       querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        queriedPostData.push(doc.data());
+        const data = doc.data();
+        data.timestamp = new Date(data.timestamp.seconds * 1000)
+        queriedPostData.push(data);
       });
       setPosts(queriedPostData);
     })()
