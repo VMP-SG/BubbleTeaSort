@@ -1,0 +1,572 @@
+[
+  {
+    "name": "SUNTEC CITY",
+    "brand": "CHICHA San Chen",
+    "address": "No. 3, Temasek Boulevard, #B1-169 Fountain Court, Suntec City Mall, Singapore 038983",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.29571,
+      "longitude": 103.85855
+    }
+  },
+  {
+    "name": "JEWEL CHANGI AIRPORT",
+    "brand": "CHICHA San Chen",
+    "address": "78 Airport Boulevard,#B2-213 Jewel Changi Airport, Singapore 819666",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "Sun-Thurs 11.00am - 9.30pm Fri-Sat 11.00am - 10.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.36025,
+      "longitude": 103.98928
+    }
+  },
+  {
+    "name": "PAYA LEBAR QUARTER",
+    "brand": "CHICHA San Chen",
+    "address": "10 Paya Lebar Road, #02-27, Singapore 409057",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.31584,
+      "longitude": 103.89275
+    }
+  },
+  {
+    "name": "EASTPOINT",
+    "brand": "CHICHA San Chen",
+    "address": "6 Simei St 6,#02-K1 Singapore 528833",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.34659,
+      "longitude": 103.95385
+    }
+  },
+  {
+    "name": "TAMPINES 1",
+    "brand": "CHICHA San Chen",
+    "address": "10 Tampines Central 1, #B1-32 Tampines 1, Singapore 529536",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 09.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.35432,
+      "longitude": 103.94514
+    }
+  },
+  {
+    "name": "WOODLANDS MRT",
+    "brand": "CHICHA San Chen",
+    "address": "Woodlands Drive 50, Avenue 2,#01-33 Singapore 738343",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.43743,
+      "longitude": 103.79234
+    }
+  },
+  {
+    "name": "HOUGANG MALL",
+    "brand": "CHICHA San Chen",
+    "address": "90 Hougang Ave 10, #01-25 Hougang Mall, Singapore 538766",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.37227,
+      "longitude": 103.89378
+    }
+  },
+  {
+    "name": "NEX",
+    "brand": "CHICHA San Chen",
+    "address": "23 Serangoon Central, #02-13A, NEX, Singapore 556083",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.15pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.35562,
+      "longitude": 103.87357
+    }
+  },
+  {
+    "name": "NORTHPOINT CITY",
+    "brand": "CHICHA San Chen",
+    "address": "930 Yishun Ave 2, #B2-01, North Wing, Northpoint City, Singapore 768019",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.4296,
+      "longitude": 103.83565
+    }
+  },
+  {
+    "name": "WATERWAY POINT",
+    "brand": "CHICHA San Chen",
+    "address": "83 Punggol Central, #01-42 Waterway Point, Singapore 828761",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.40609,
+      "longitude": 103.90241
+    }
+  },
+  {
+    "name": "COMPASS ONE",
+    "brand": "CHICHA San Chen",
+    "address": "1 Sengkang Square, Compass One, #B1-10 Singapore 528833",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.39224,
+      "longitude": 103.89526
+    }
+  },
+  {
+    "name": "ANG MO KIO HUB",
+    "brand": "CHICHA San Chen",
+    "address": "53 Ang Mo Kio Ave 3, #B1-65A/65B, Singapore 569933",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.36935,
+      "longitude": 103.84825
+    }
+  },
+  {
+    "name": "MARINA SQUARE",
+    "brand": "CHICHA San Chen",
+    "address": "6 Raffles Boulevard, #02-208,Singapore 039594",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "Sun-Thurs 11.00 am - 9.00pm Fri-Sat 11.00am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.29098,
+      "longitude": 103.85765
+    }
+  },
+  {
+    "name": "WHEELOCK PLACE",
+    "brand": "CHICHA San Chen",
+    "address": "501 Orchard Road, #B1-05,Singapore 238880",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "10.30am - 9.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.30458,
+      "longitude": 103.83406
+    }
+  },
+  {
+    "name": "CIMB PLAZA",
+    "brand": "CHICHA San Chen",
+    "address": "30 Raffles Place , #B1-20/21 CIMB Plaza, Singapore 048622",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 7.30pm  (Mon - Fri only, Closed on Weekends & Public Holidays)",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.28421,
+      "longitude": 103.85201
+    }
+  },
+  {
+    "name": "TAKASHIMAYA S.C., NGEE ANN CITY",
+    "brand": "CHICHA San Chen",
+    "address": "391 Orchard Road , #B2-03 Takashimaya S.C., Ngee Ann City, Singapore 238872",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.30242,
+      "longitude": 103.83468
+    }
+  },
+  {
+    "name": "VELOCITY@NOVENA SQUARE",
+    "brand": "CHICHA San Chen",
+    "address": "238 Thomson Road, #01-07, Novena Square, Singapore 307685",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "10.30am - 9.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.32016,
+      "longitude": 103.84384
+    }
+  },
+  {
+    "name": "313@somerset",
+    "brand": "CHICHA San Chen",
+    "address": "313 Orchard Road, #03-41, 313@somerset, Singapore 238895",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "Sun-Thurs 11.00am - 9.30pm Fri-Sat 11.00am - 10.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.29782,
+      "longitude": 103.84734
+    }
+  },
+  {
+    "name": "CLARKE QUAY CENTRAL",
+    "brand": "CHICHA San Chen",
+    "address": "6 Eu Tong Sen Street, #B1-K9, Singapore 059817",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "Mon - Sun 11.00am - 9.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.28924,
+      "longitude": 103.84731
+    }
+  },
+  {
+    "name": "KALLANG WAVE MALL",
+    "brand": "CHICHA San Chen",
+    "address": "1 Stadium Place, #01-52, Sports Hub Retail Mall Singapore 397628",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "Mon-Fri 11.00am - 9.00pm Sat-Sun 11.00am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.30308,
+      "longitude": 103.87315
+    }
+  },
+  {
+    "name": "PLAZA SINGAPURA",
+    "brand": "CHICHA San Chen",
+    "address": "68 Orchard Road, #B1-K7, Singapore 238839",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.30458,
+      "longitude": 103.83406
+    }
+  },
+  {
+    "name": "CHINATOWN POINT",
+    "brand": "CHICHA San Chen",
+    "address": "133 New Bridge Road, #B1-50B, Singapore 059413",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.28514,
+      "longitude": 103.84457
+    }
+  },
+  {
+    "name": "WHITE SANDS",
+    "brand": "CHICHA San Chen",
+    "address": "1 Pasir Ris Central 3, #01-39B, Singapore 518457",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.37301,
+      "longitude": 103.94927
+    }
+  },
+  {
+    "name": "JURONG POINT",
+    "brand": "CHICHA San Chen",
+    "address": "63 Jurong West Central 3,#03-32/33 Jurong Point, Singapore 648831",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "10.30am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.33952,
+      "longitude": 103.70573
+    }
+  },
+  {
+    "name": "STAR VISTA",
+    "brand": "CHICHA San Chen",
+    "address": "1 Vista Exchange Green,#02-28B The Star Vista, Singapore 138617",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "Sun-Thurs 11.00am - 9.00pm Fri-Sat 11.00am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.30682,
+      "longitude": 103.78846
+    }
+  },
+  {
+    "name": "JEM",
+    "brand": "CHICHA San Chen",
+    "address": "50 Jurong Gateway Road, #01-17, JEM, Singapore 608549",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "Sun-Thurs 10.30am - 9.30pm Fri-Sat 10.30am - 10.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.33211,
+      "longitude": 103.7411
+    }
+  },
+  {
+    "name": "HILLION MALL",
+    "brand": "CHICHA San Chen",
+    "address": "17 Petir Road, Hillion Mall,#B2-17 Singapore 678278",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am - 9.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.37843,
+      "longitude": 103.76284
+    }
+  },
+  {
+    "name": "NTU",
+    "brand": "CHICHA San Chen",
+    "address": "Fine Food @ South Spine Foodcourt, 50 Nanyang Avenue, Singapore 639798",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "Mon-Fri 11.00am - 7.30pm Sat 11.00am - 1.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.34382,
+      "longitude": 103.68277
+    }
+  },
+  {
+    "name": "LOT ONE",
+    "brand": "CHICHA San Chen",
+    "address": "21 Choa Chu Kang Ave 4, #01-05, Lot One Shoppers' Mall, Singapore 689812",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "Sun-Thurs11.00am - 9.30pm Fri-Sat 11.00am - 10.00pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.37657,
+      "longitude": 103.74381
+    }
+  },
+  {
+    "name": "NUS Fine Food",
+    "brand": "CHICHA San Chen",
+    "address": "National University Of Singapore, 1 Create Way, Town Plaza, Singapore 138602",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am-8.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.30401781,
+      "longitude": 103.7735947
+    }
+  }
+]

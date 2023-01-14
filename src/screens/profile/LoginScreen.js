@@ -7,7 +7,7 @@ import { auth } from '../../utils/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import PasswordInput from '../../components/inputs/PasswordInput';
 
-const LoginPage = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
@@ -40,4 +40,4 @@ const LoginPage = ({ navigation }) => {
   )
 }
 
-export default LoginPage
+export default LoginScreen
