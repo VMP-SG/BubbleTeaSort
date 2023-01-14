@@ -7,7 +7,7 @@ import React from 'react'
 
 const PrimaryButton = ({ onPress, children, disabled }) => {
   return (
-    <TouchableOpacity className={`w-full py-2 ${disabled ? "bg-[#3E3E3E71]" : "bg-[#3E3E3E]"} rounded-full`} onPress={onPress} disabled={disabled}>
+    <TouchableOpacity className={`w-full py-2 ${disabled ? "bg-gray-light-transparent" : "bg-gray-light"} rounded-full`} onPress={onPress} disabled={disabled}>
       <Text className='font-secondary text-xl text-center text-white'>{children.toUpperCase()}</Text>
     </TouchableOpacity>
   )

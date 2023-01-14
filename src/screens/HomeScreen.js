@@ -4,7 +4,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Text className='font-primary-bold'>This is the Home Screen</Text>
+      <Text>This is the Home Screen</Text>
     </View>
   );
 };
