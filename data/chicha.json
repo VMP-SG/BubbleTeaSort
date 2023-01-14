@@ -549,5 +549,24 @@
       "latitude": 1.37657,
       "longitude": 103.74381
     }
+  },
+  {
+    "name": "NUS Fine Food",
+    "brand": "CHICHA San Chen",
+    "address": "National University Of Singapore, 1 Create Way, Town Plaza, Singapore 138602",
+    "flavours": [
+      "Green Tea",
+      "Osmanthus Oolong Tea",
+      "High Mountain Pouchong Tea",
+      "Black Tea",
+      "Dong Ding Oolong Tea",
+      "Cassia Black Tea"
+    ],
+    "hours": "11.00am-8.30pm",
+    "menu_link": "https://sgmenu.org/chicha-san-chen-menu/",
+    "coordinates": {
+      "latitude": 1.30401781,
+      "longitude": 103.7735947
+    }
   }
 ]
