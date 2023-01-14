@@ -1,12 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-<<<<<<< HEAD
 import HomeScreen from "../screens/home/HomeScreen";
 import PostScreen from "../screens/common/PostScreen";
-=======
-import HomeScreen from '../screens/home/HomeScreen';
-import PostScreen from '../screens/common/PostScreen';
->>>>>>> main
 
 const Stack = createNativeStackNavigator();
 

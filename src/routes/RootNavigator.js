@@ -1,19 +1,18 @@
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-<<<<<<< HEAD
 import HomeNavigator from "./HomeNavigator";
 import SearchScreen from "../screens/SearchScreen";
-=======
-import HomeNavigator from './HomeNavigator';
-import SearchNavigator from './SearchNavigator';
->>>>>>> main
 import NewPostScreen from "../screens/NewPostScreen";
 import DiscoverNavigator from "./DiscoverNavigator";
 import MidFAB from "../components/buttons/MidFAB";
 import ProfileNavigator from "./ProfileNavigator";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text, View } from "react-native";
-import { HomeIcon, MagnifyingGlassIcon, UserIcon } from "react-native-heroicons/outline";
+import {
+  HomeIcon,
+  MagnifyingGlassIcon,
+  UserIcon,
+} from "react-native-heroicons/outline";
 
 const Tab = createBottomTabNavigator();
 
@@ -73,13 +72,9 @@ const RootNavigator = () => {
               {focused ? "Search" : ""}
             </Text>
           ),
-<<<<<<< HEAD
           headerShown: false,
-=======
-          headerShown: false
->>>>>>> main
         }}
-        />
+      />
       <Tab.Screen
         name="New Post"
         component={NewPostScreen}
