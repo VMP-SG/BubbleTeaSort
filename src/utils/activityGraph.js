@@ -16,11 +16,16 @@ export const getCoordinates = (percentages) => {
   
   const max = percentages[0];
   
-  const left = Math.floor(percentages[0] / max * lengthX);
-  const top = Math.floor(percentages[1] / max * lengthY);
-  const right = Math.floor(percentages[2] / max * lengthX);
-  const bottom = Math.floor(percentages[3] / max * lengthY);
+  let left = max === 0 ? -1 : Math.floor(percentages[0] / max * lengthX);
+  let top = max === 0 ? -1 : Math.floor(percentages[1] / max * lengthY);
+  let right = max === 0 ? -1 : Math.floor(percentages[2] / max * lengthX);
+  let bottom = max === 0 ? -1 : Math.floor(percentages[3] / max * lengthY);
   
+  left = left === 0 ? -1 : left;
+  top = top === 0 ? -1 : top;
+  right = right === 0 ? -1 : right;
+  bottom = bottom === 0 ? -1 : bottom;
+
   const leftCoordinates = (CENTREX - 1 - left) + "," + CENTREY;
   const topCoordinates = CENTREX + "," + (CENTREY - 1 - top);
   const rightCoordinates = (CENTREX + 1 + right) + "," + CENTREY;

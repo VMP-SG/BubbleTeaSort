@@ -1,13 +1,13 @@
 import { Text, SafeAreaView, View, Image, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import { UserIcon, EyeIcon, EyeSlashIcon } from 'react-native-heroicons/outline';
+import { UserIcon } from 'react-native-heroicons/outline';
 import Input from '../../components/inputs/Input';
 import PrimaryButton from '../../components/buttons/PrimaryButton';
 import { auth } from '../../utils/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import PasswordInput from '../../components/inputs/PasswordInput';
 
-const LoginPage = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
@@ -40,4 +40,4 @@ const LoginPage = ({ navigation }) => {
   )
 }
 
-export default LoginPage
+export default LoginScreen

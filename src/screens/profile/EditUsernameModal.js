@@ -6,14 +6,18 @@ import { auth } from '../../utils/firebase'
 import { ScrollView } from 'react-native-gesture-handler'
 import ModalButton from '../../components/buttons/ModalButton'
 import { updateProfile } from 'firebase/auth'
+import { updateDoc, doc } from 'firebase/firestore'
 
 const EditUsernameModal = ({ navigation, visible, onClose }) => {
   const profilePictureUrl = useProfilePicture();
-  const [username, setUsername] = useState(auth.currentUser.displayName);
+  const [username, setUsername] = useState(auth.currentUser ? auth.currentUser.displayName : "");
 
   const changeUsernameHandler = async () => {
     await updateProfile(auth.currentUser, {
       displayName: username
+    });
+    await updateDoc(doc(db, "User", auth.currentUser.uid), {
+      display_name: username
     });
     navigation.navigate("Profile", {
       displayName: username
