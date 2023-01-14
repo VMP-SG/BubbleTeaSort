@@ -1,9 +1,5 @@
 const sortByDistance = (currentList) => {
-<<<<<<< HEAD
   const newList = [...currentList].sort((a, b) => a.distance - b.distance);
-=======
-  const newList = [...currentList].sort((a, b) => b.distance - a.distance);
->>>>>>> 0643571cdc2dc44168fc0573dc04c1eac357c608
   return newList;
 };
 
