@@ -26,7 +26,8 @@ const RegisterScreen = ({ navigation }) => {
         photoURL: "profile_pictures/DefaultProfilePicture.png"
       });
       await setDoc(doc(db, "User", userCredential.user.uid), {
-        display_name: displayName
+        display_name: displayName,
+        search_history: []
       });
       navigation.goBack();
     } catch (error) {
