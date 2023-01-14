@@ -1,28 +1,28 @@
 import {
-  Pressable,
   View,
-  Text,
   SafeAreaView,
   ScrollView,
-  Image,
   KeyboardAvoidingView,
+  Text,
+  Pressable,
+  Image,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
-import PrimaryButton from "../components/buttons/PrimaryButton";
-import * as ImagePicker from "expo-image-picker";
 import { StarIcon } from "react-native-heroicons/solid";
 import {
   StarIcon as StarIconOutline,
   PlusIcon as PlusIconOutline,
   ChevronDownIcon as ChevronDownIconOutline,
 } from "react-native-heroicons/outline";
-import { ref, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection, getDocs, Timestamp } from "firebase/firestore";
 import { Dropdown, MultiSelect } from "react-native-element-dropdown";
+import * as ImagePicker from "expo-image-picker";
+import { addDoc, collection, getDocs, Timestamp } from "firebase/firestore";
+import { ref, uploadBytesResumable } from "firebase/storage";
+import Input from "../components/inputs/Input";
+import PrimaryButton from "../components/buttons/PrimaryButton";
 import { calcDistance, getLocation } from "../utils/location";
 import { db, auth, storage } from "../utils/firebase";
-import Input from "../components/inputs/Input";
 
 const NewPostScreen = ({ navigation }) => {
   const [store, setStore] = useState("");
@@ -33,7 +33,7 @@ const NewPostScreen = ({ navigation }) => {
   const [photoUri, setPhotoUri] = useState("");
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
   const [comments, setComments] = useState("");
 
   const isFocused = useIsFocused();
@@ -105,6 +105,7 @@ const NewPostScreen = ({ navigation }) => {
     setup();
   }, [isFocused]);
 
+  // clears state after posting
   const clearData = () => {
     setPhotoUri("");
     setTitle("");
@@ -113,27 +114,6 @@ const NewPostScreen = ({ navigation }) => {
     setPrice(0);
     setFlavours([]);
     setComments("");
-  };
-
-  // stars for rating
-  const getStars = (rating) => {
-    const getStar = (index) => {
-      return (
-        <Pressable key={index} onPress={() => setRating(index + 1)}>
-          {index < rating ? (
-            <StarIcon fill="black" key={index} />
-          ) : (
-            <StarIconOutline stroke="black" strokeWidth={2} key={index} />
-          )}
-        </Pressable>
-      );
-    };
-
-    return (
-      <View className="flex-row justify-between w-{152}">
-        {[...Array(5).keys()].map(getStar)}
-      </View>
-    );
   };
 
   // event handlers
@@ -151,6 +131,19 @@ const NewPostScreen = ({ navigation }) => {
     setFlavoursList(list);
   };
 
+  const imagePickerHandler = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      const uri = result.assets[0].uri;
+      setPhotoUri(uri);
+    }
+  };
   const postHandler = async () => {
     // upload photo
     const photoUrl = "posts/" + new Date().getTime() + "-media.png";
@@ -192,18 +185,25 @@ const NewPostScreen = ({ navigation }) => {
     }
   };
 
-  const imagePickerHandler = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
+  // stars for rating
+  const getStars = (rating) => {
+    const getStar = (index) => {
+      return (
+        <Pressable key={index} onPress={() => setRating(index + 1)}>
+          {index < rating ? (
+            <StarIcon fill="black" key={index} />
+          ) : (
+            <StarIconOutline stroke="black" strokeWidth={2} key={index} />
+          )}
+        </Pressable>
+      );
+    };
 
-    if (!result.canceled) {
-      const uri = result.assets[0].uri;
-      setPhotoUri(uri);
-    }
+    return (
+      <View className="flex-row justify-between w-{152}">
+        {[...Array(5).keys()].map(getStar)}
+      </View>
+    );
   };
 
   return (
@@ -216,7 +216,7 @@ const NewPostScreen = ({ navigation }) => {
           scrollEnabled={true}
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{
-            paddingBottom: 79,
+            paddingBottom: 72,
           }}
         >
           <View className="px-4 py-6 items-center justify-center">
@@ -331,7 +331,7 @@ const NewPostScreen = ({ navigation }) => {
                 $
               </Text>
               <Input
-                onChangeText={(text) => setPrice(parseFloat(text))}
+                onChangeText={(text) => setPrice(text)}
                 value={price}
                 style={{ paddingLeft: 18 }}
                 keyboardType="numeric"
