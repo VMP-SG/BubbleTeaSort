@@ -8,15 +8,20 @@ import {
   Image,
 } from "react-native";
 import { useEffect, useState } from "react";
+import { useIsFocused } from "@react-navigation/native";
+import { StarIcon } from "react-native-heroicons/solid";
 import {
+  StarIcon as StarIconOutline,
   PlusIcon as PlusIconOutline,
   ChevronDownIcon as ChevronDownIconOutline,
 } from "react-native-heroicons/outline";
 import { Dropdown, MultiSelect } from "react-native-element-dropdown";
 import * as ImagePicker from "expo-image-picker";
+import { addDoc, collection, getDocs, Timestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable } from "firebase/storage";
 import Input from "../components/inputs/Input";
 import PrimaryButton from "../components/buttons/PrimaryButton";
+import { calcDistance, getLocation } from "../utils/location";
 import { db, auth, storage } from "../utils/firebase";
 
 const NewPostScreen = ({ navigation }) => {
@@ -31,6 +36,87 @@ const NewPostScreen = ({ navigation }) => {
   const [price, setPrice] = useState("");
   const [comments, setComments] = useState("");
 
+  const isFocused = useIsFocused();
+
+  // setup
+  useEffect(() => {
+    // check if user is logged in
+    // if user is not logged in, go to login
+    if (auth.currentUser === null) {
+      navigation.navigate("ProfileNavigator");
+    }
+
+    // check if setup is complete
+    if (!storeData) {
+      return;
+    }
+
+    const fetchCurrentLocation = async () => {
+      const location = await getLocation();
+      return location;
+    };
+
+    const getStoreData = async (location) => {
+      const querySnapshot = await getDocs(collection(db, "Store"));
+      const allStores = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const distance = calcDistance(
+          location.coords.latitude,
+          location.coords.longitude,
+          data.coordinates.latitude,
+          data.coordinates.longitude
+        );
+        data.distance = distance.toFixed(1);
+        allStores.push({
+          id: doc.id,
+          data,
+        });
+      });
+
+      allStores.sort((first, second) => {
+        if (first.data.distance < second.data.distance) {
+          return 1;
+        } else if (first.data.distance > second.data.distance) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+
+      setStoreData(allStores);
+
+      const storeList = [];
+      for (let i = 0; i < allStores.length; i++) {
+        const currStore = allStores[i].data;
+        storeList.push({
+          label: currStore.brand + " @ " + currStore.name,
+          value: i,
+        });
+      }
+      setStoreList(storeList);
+    };
+
+    const setup = async () => {
+      const currentLocation = await fetchCurrentLocation();
+      getStoreData(currentLocation);
+    };
+
+    setup();
+  }, [isFocused]);
+
+  // clears state after posting
+  const clearData = () => {
+    setPhotoUri("");
+    setTitle("");
+    setRating(0);
+    setStore("");
+    setPrice(0);
+    setFlavours([]);
+    setComments("");
+  };
+
+  // event handlers
   const storeHandler = async (option) => {
     const selected = storeData[option.value];
     const data = selected.data.flavours;
@@ -100,7 +186,26 @@ const NewPostScreen = ({ navigation }) => {
     }
   };
 
-  const getStars = (rating) => {};
+  // stars for rating
+  const getStars = (rating) => {
+    const getStar = (index) => {
+      return (
+        <Pressable key={index} onPress={() => setRating(index + 1)}>
+          {index < rating ? (
+            <StarIcon fill="black" key={index} />
+          ) : (
+            <StarIconOutline stroke="black" strokeWidth={2} key={index} />
+          )}
+        </Pressable>
+      );
+    };
+
+    return (
+      <View className="flex-row justify-between w-{152}">
+        {[...Array(5).keys()].map(getStar)}
+      </View>
+    );
+  };
 
   return (
     <SafeAreaView>
@@ -131,7 +236,7 @@ const NewPostScreen = ({ navigation }) => {
                   onPress={imagePickerHandler}
                 >
                   <Image
-                    source={require("../../assets/icons/Avatar.png")}
+                    source={require("../../assets/icons/ImageIcon.png")}
                     className="mb-5"
                   />
                   <Text className="font-primary-bold text-xl mb-[87px]">
