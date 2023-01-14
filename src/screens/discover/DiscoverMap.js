@@ -1,16 +1,12 @@
-import MapView from "react-native-maps";
-import { useState } from "react";
+import MapView, { Marker } from "react-native-maps";
 import { View, StyleSheet } from "react-native";
 
-export default function () {
-  const [coords, setCoords] = useState({
+export default function ({ overallList, navigation, route }) {
+  const coords = {
     latitude: 1.3521,
     longitude: 103.8198,
     latitudeDelta: 0.85,
     longitudeDelta: 0.0921,
-  });
-  const onRegionChange = (coords) => {
-    setCoords(coords);
   };
   const styles = StyleSheet.create({
     map: {
@@ -19,12 +15,29 @@ export default function () {
   });
   return (
     <View className="w-screen h-screen">
-      <MapView
-        style={styles.map}
-        region={coords}
-        onRegionChange={onRegionChange}
-        onPanDrag={() => {}}
-      />
+      <MapView style={styles.map} region={coords} onPanDrag={() => {}}>
+        {overallList.map((marker, i) => {
+          if (marker?.coordinates?.latitude) {
+            return (
+              <Marker
+                key={i}
+                coordinate={{
+                  latitude: marker.coordinates.latitude,
+                  longitude: marker.coordinates.longitude,
+                }}
+                title={`${marker.brand} @ ${marker.name}`}
+                onCalloutPress={() => {
+                  navigation.navigate("DiscoverStore", {
+                    id: marker.id,
+                    rating: marker.rating || 0,
+                    count: marker.count || 0,
+                  });
+                }}
+              />
+            );
+          }
+        })}
+      </MapView>
     </View>
   );
 }
