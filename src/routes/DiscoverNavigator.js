@@ -2,6 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DiscoverScreen from "../screens/discover/DiscoverScreen";
 import DiscoverFilter from "../screens/discover/DiscoverFilter";
+import StoreScreen from "../screens/discover/StoreScreen";
 import { auth } from "../utils/firebase";
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,20 @@ const DiscoverNavigator = () => {
         }}
         name="DiscoverFilter"
         component={DiscoverFilter}
+      />
+      <Stack.Screen
+        name="DiscoverStore"
+        component={StoreScreen}
+        options={{
+          title: "Discover",
+          headerShown: true,
+          headerBackTitle: "",
+          headerTitleAlign: "center",
+          headerTintColor: "black",
+          headerTitleStyle: {
+            fontFamily: "Comfortaa_400Regular",
+          },
+        }}
       />
     </Stack.Navigator>
   );
