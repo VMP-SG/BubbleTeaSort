@@ -9,8 +9,9 @@ import {
   FlatList,
 } from "react-native";
 import StorePageCard from "../../components/cards/StorePageCard";
-import { getStoreData, getPostDataByStoreID } from "../../utils/firebase";
+import { getStoreData, getPostDataByStoreID, db } from "../../utils/firebase";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { getDocs, collection } from "firebase/firestore";
 
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -28,18 +29,6 @@ const IconText = ({ iconName, text, style, additionalButton }) => {
   );
 };
 
-const DropdownButton = ({ onPress, open }) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <MaterialCommunityIcons
-        name={open ? "chevron-up" : "chevron-down"}
-        color="black"
-        size={24}
-      />
-    </TouchableOpacity>
-  );
-};
-
 const ExternalLinkButton = ({ onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
@@ -52,7 +41,6 @@ export default function ({ route, navigation }) {
   const [storeData, setStoreData] = useState({});
   const [time, setTime] = useState();
   const [flavours, setFlavours] = useState();
-  const [open, setOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const id = route.params?.id;
   const rating = route.params?.rating;
@@ -63,8 +51,22 @@ export default function ({ route, navigation }) {
       setTime(d.hours.split(", ").join("\n"));
       setFlavours(d.flavours.slice(0, 3).join("\n"));
     });
-    getPostDataByStoreID(id).then((d) => {
-      setPosts(d);
+    getPostDataByStoreID(id).then(async (d) => {
+      let fetchedUsers = [];
+      let fetchedPosts = [];
+      const userQuerySnapshot = await getDocs(collection(db, "User"));
+      userQuerySnapshot.forEach((doc) => {
+        const data = doc.data();
+        fetchedUsers.push({ ...data, id: doc.id });
+      });
+      d.forEach((post) => {
+        const uid = post.author;
+        const user = fetchedUsers.find((fetchedUser) => fetchedUser.id === uid);
+        if (user) {
+          fetchedPosts.push({ ...post, ...user });
+        }
+      });
+      setPosts(fetchedPosts);
     });
   }, []);
   return (
@@ -88,7 +90,7 @@ export default function ({ route, navigation }) {
           />
           <IconText
             iconName="clock-time-three"
-            text={open ? timeOpen : time}
+            text={time}
             className="font-secondary"
           />
           <IconText
@@ -115,7 +117,12 @@ export default function ({ route, navigation }) {
                   }}
                   horizontal
                   data={posts}
-                  renderItem={({ item }) => <StorePageCard post={item} />}
+                  renderItem={({ item }) => (
+                    <StorePageCard
+                      post={item}
+                      onPress={() => navigation.navigate("Post", item)}
+                    />
+                  )}
                   keyExtractor={(item) => item.caption}
                 />
               </View>

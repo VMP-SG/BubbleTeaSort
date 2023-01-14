@@ -1,7 +1,7 @@
 import MapView, { Marker } from "react-native-maps";
 import { View, StyleSheet } from "react-native";
 
-export default function ({ overallList }) {
+export default function ({ overallList, navigation, route }) {
   const coords = {
     latitude: 1.3521,
     longitude: 103.8198,
@@ -27,7 +27,11 @@ export default function ({ overallList }) {
                 }}
                 title={`${marker.brand} @ ${marker.name}`}
                 onCalloutPress={() => {
-                  console.log(marker.id);
+                  navigation.navigate("DiscoverStore", {
+                    id: marker.id,
+                    rating: marker.rating || 0,
+                    count: marker.count || 0,
+                  });
                 }}
               />
             );
