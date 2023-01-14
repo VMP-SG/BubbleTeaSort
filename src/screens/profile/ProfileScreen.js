@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, Pressable, ScrollView, Dimensions } from 'react-native'
+import { View, Text, SafeAreaView, Image, Pressable, ScrollView, FlatList } from 'react-native'
 import React, { useEffect, useState } from "react";
 import { auth, db } from '../../utils/firebase'
 import { Cog6ToothIcon } from 'react-native-heroicons/outline'
@@ -10,6 +10,9 @@ import { ContributionGraph } from 'react-native-chart-kit';
 import ActivityGraph from '../../components/ActivityGraph';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { getActivityPercentagesAndLabels, getCommitsData, getCupsInPastMonth, getSpendingInPastMonth } from '../../utils/profile';
+import { getLocation } from '../../utils/location';
+import { useIsFocused } from '@react-navigation/native';
+import PostCard from '../../components/PostCard';
 
 const SummaryView = ({ posts }) => {
 
@@ -118,11 +121,59 @@ const SummaryView = ({ posts }) => {
   )
 }
 
+const PostsView = ({location, navigation, posts, profilePictureUrl, username, showSummary, setShowSummary}) => {
+  return (
+      <FlatList
+        columnWrapperStyle={{
+          justifyContent: "space-between",
+          padding: 16
+        }}
+        ListHeaderComponent={<ProfileTop navigation={navigation} posts={posts} profilePictureUrl={profilePictureUrl} username={username} showSummary={showSummary} setShowSummary={setShowSummary} />}
+        data={posts}
+        numColumns={2}
+        renderItem={({ item }) => <PostCard location={location} post={item} className='w-[48%]' />}
+      />
+  )
+}
+
+const ProfileTop = ({ profilePictureUrl, navigation, posts, showSummary, setShowSummary, username }) => {
+  return (
+    <>
+      <View className='flex-row items-center py-8'>
+        <View className='flex-1 items-center'>
+          <Image className='w-24 h-24 rounded-full border' source={profilePictureUrl === null ? require("../../../assets/icons/DefaultProfilePicture.png") : { uri: profilePictureUrl }} />
+        </View>
+        <View className='flex-1'>
+          <View className='flex-row w-full pr-8 items-center'>
+            <Text className='font-primary-bold text-2xl pr-2' numberOfLines={1}>{username}</Text>
+            <Pressable onPress={() => navigation.navigate("Settings")} hitSlop={10}>
+              <Cog6ToothIcon color="black" strokeWidth={2} />
+            </Pressable>
+          </View>
+          <Text className='font-secondary text-base mt-1'>{posts.length} Post{posts.length === 1 ? "" : "s"}</Text>
+        </View>
+      </View>
+      <ToggleBar className='bg-brown-400' showLeft={showSummary} setShowLeft={setShowSummary} leftText="Posts" rightText="Summary" />
+    </>
+  )
+}
+
 const ProfileScreen = ({ route, navigation }) => {
   const profilePictureUrl = useProfilePicture(!route.params || !route.params.photoURL ? undefined : route.params.photoURL);
   const username = !route.params || !route.params.displayName ? auth.currentUser.displayName : route.params.displayName;
   const [showSummary, setShowSummary] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [location, setLocation] = useState(null);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    const fetchCurrentLocation = async () => {
+      const location = await getLocation();
+      setLocation(location);
+    }
+    if (isFocused) {
+      fetchCurrentLocation();
+    }
+  },[isFocused]);
 
   useEffect(() => {
     (async() => {
@@ -136,28 +187,20 @@ const ProfileScreen = ({ route, navigation }) => {
       });
       setPosts(queriedPostData);
     })()
-  },[])
+  },[]); // TODO: add isFocused here
 
   return (
     <SafeAreaView className="flex-1">
-      <ScrollView>
-        <View className='flex-row items-center py-8'>
-          <View className='flex-1 items-center'>
-            <Image className='w-24 h-24 rounded-full border' source={profilePictureUrl === null ? require("../../../assets/icons/DefaultProfilePicture.png") : { uri: profilePictureUrl }} />
-          </View>
-          <View className='flex-1'>
-            <View className='flex-row w-full pr-8 items-center'>
-              <Text className='font-primary-bold text-2xl pr-2' numberOfLines={1}>{username}</Text>
-              <Pressable onPress={() => navigation.navigate("Settings")} hitSlop={10}>
-                <Cog6ToothIcon color="black" strokeWidth={2} />
-              </Pressable>
-            </View>
-            <Text className='font-secondary text-base mt-1'>{posts.length} Post{posts.length === 1 ? "" : "s"}</Text>
-          </View>
+      {
+        showSummary ?
+        <ScrollView>
+          <ProfileTop navigation={navigation} posts={posts} profilePictureUrl={profilePictureUrl} username={username} showSummary={showSummary} setShowSummary={setShowSummary} />
+          <SummaryView posts={posts} />
+        </ScrollView> :
+        <View className='flex-1'>
+          <PostsView location={location} navigation={navigation} posts={posts} profilePictureUrl={profilePictureUrl} username={username} showSummary={showSummary} setShowSummary={setShowSummary} />
         </View>
-        <ToggleBar className='bg-brown-400' showLeft={showSummary} setShowLeft={setShowSummary} leftText="Posts" rightText="Summary" />
-        {showSummary && <SummaryView posts={posts} />}
-      </ScrollView>
+      }
     </SafeAreaView>
   )
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import HomeScreen from "../screens/HomeScreen";
+import HomeNavigator from './HomeNavigator';
 import SearchScreen from "../screens/SearchScreen";
 import NewPostScreen from "../screens/NewPostScreen";
 import DiscoverNavigator from "./DiscoverNavigator";
@@ -31,8 +31,8 @@ const RootNavigator = () => {
       })}
     >
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="HomeNavigator"
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <View
@@ -43,11 +43,8 @@ const RootNavigator = () => {
               <HomeIcon size={size} color={color} strokeWidth={2} />
             </View>
           ),
-          tabBarLabel: ({ focused }) => (
-            <Text className="font-primary text-gray-light text-xs">
-              {focused ? "Home" : ""}
-            </Text>
-          ),
+          tabBarLabel: ({ focused }) => (<Text className='font-primary text-gray-light text-xs'>{focused ? "Home" : ""}</Text>),
+          headerShown: false
         }}
       />
       <Tab.Screen

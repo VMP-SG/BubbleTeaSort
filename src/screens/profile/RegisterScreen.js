@@ -2,10 +2,11 @@ import { View, Text, SafeAreaView, ScrollView, Image } from 'react-native'
 import React, { useState } from 'react'
 import Input from '../../components/inputs/Input'
 import PrimaryButton from '../../components/buttons/PrimaryButton'
-import { UserIcon, EyeSlashIcon, EyeIcon } from 'react-native-heroicons/outline'
-import { auth } from '../../utils/firebase';
+import { UserIcon } from 'react-native-heroicons/outline'
+import { auth, db } from '../../utils/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { generateRandomUsername } from '../../utils/username'
+import { doc, setDoc } from 'firebase/firestore'
+import { generateRandomUsername } from '../../utils/strings'
 import PasswordInput from '../../components/inputs/PasswordInput'
 
 const RegisterScreen = ({ navigation }) => {
@@ -19,9 +20,13 @@ const RegisterScreen = ({ navigation }) => {
   const registerHandler = async () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const displayName = generateRandomUsername();
       await updateProfile(userCredential.user, {
-        displayName: generateRandomUsername(),
+        displayName,
         photoURL: "profile_pictures/DefaultProfilePicture.png"
+      });
+      await setDoc(doc(db, "User", userCredential.user.uid), {
+        display_name: displayName
       });
       navigation.goBack();
     } catch (error) {
