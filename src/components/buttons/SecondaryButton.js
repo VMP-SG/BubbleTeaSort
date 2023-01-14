@@ -5,20 +5,20 @@ import React from "react";
 // onPress: what happens when button is pressed
 // disabled: boolean on whether the button is disabled
 
-const PrimaryButton = ({ onPress, children, disabled }) => {
+const SecondaryButton = ({ onPress, children, disabled }) => {
   return (
     <TouchableOpacity
       className={`w-full py-2 ${
-        disabled ? "bg-gray-light-transparent" : "bg-gray-light"
+        disabled ? "bg-gray-light-transparent" : "bg-white border border-gray"
       } rounded-full`}
       onPress={onPress}
       disabled={disabled}
     >
-      <Text className="font-secondary text-xl text-center text-white">
+      <Text className="font-secondary text-xl text-center text-black">
         {children.toUpperCase()}
       </Text>
     </TouchableOpacity>
   );
 };
 
-export default PrimaryButton;
+export default SecondaryButton;

@@ -5,7 +5,7 @@ import DiscoverMap from "./DiscoverMap";
 import DiscoverList from "./DiscoverList";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const DiscoverScreen = ({ navigation, route }) => {
+const DiscoverScreen = ({ route, navigation }) => {
   const [isMap, setIsMap] = useState(true);
   const toggleMap = () => {
     setIsMap(!isMap);
@@ -20,9 +20,9 @@ const DiscoverScreen = ({ navigation, route }) => {
         />
       </DiscoverFAB>
       {isMap ? (
-        <DiscoverMap navigation={navigation} route={route} />
+        <DiscoverMap route={route} navigation={navigation} />
       ) : (
-        <DiscoverList navigation={navigation} route={route} />
+        <DiscoverList route={route} navigation={navigation} />
       )}
     </SafeAreaView>
   );
