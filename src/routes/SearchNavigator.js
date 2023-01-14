@@ -1,7 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SearchScreen from '../screens/search/SearchScreen';
-import PostScreen from '../screens/search/PostScreen';
+import PostScreen from '../screens/common/PostScreen';
 
 const Stack = createNativeStackNavigator();
 

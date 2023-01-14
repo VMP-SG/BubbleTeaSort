@@ -77,9 +77,9 @@ export const getActivityPercentagesAndLabels = async (posts) => {
   let [top, second, third, ...fourth] = brandsPercentage;
   const placeholders = [
     {brand: "KOI Thé", percentage: 0},
-    {brand: "LiHo Tea", percentage: 0},
+    {brand: "LiHo", percentage: 0},
     {brand: "Gong Cha", percentage: 0},
-    {brand: "iTea", percentage: 0}
+    {brand: "PlayMade", percentage: 0}
   ]
 
   if (!top) {

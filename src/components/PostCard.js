@@ -7,6 +7,11 @@ import { MapPinIcon, HeartIcon } from 'react-native-heroicons/solid'
 import { calcDistance } from '../utils/location'
 import { nFormatter } from '../utils/number'
 
+// post: Post Document from Firebase
+// location: Location object from getLocation util
+// style: Transfers tailwind styles
+// onPress: function that executes when the post card is pressed (navigation)
+
 const PostCard = ({ post, location, style, onPress }) => {
   const imageUri = usePostPicture(post.photo);
   const [likeCount, setLikeCount] = useState(post.likes.length);
