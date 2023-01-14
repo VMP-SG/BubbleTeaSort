@@ -12,8 +12,12 @@ import {
   PlusIcon as PlusIconOutline,
   ChevronDownIcon as ChevronDownIconOutline,
 } from "react-native-heroicons/outline";
-import Input from "../components/inputs/Input";
 import { Dropdown, MultiSelect } from "react-native-element-dropdown";
+import * as ImagePicker from "expo-image-picker";
+import { ref, uploadBytesResumable } from "firebase/storage";
+import Input from "../components/inputs/Input";
+import PrimaryButton from "../components/buttons/PrimaryButton";
+import { db, auth, storage } from "../utils/firebase";
 
 const NewPostScreen = ({ navigation }) => {
   const [store, setStore] = useState("");
@@ -27,9 +31,74 @@ const NewPostScreen = ({ navigation }) => {
   const [price, setPrice] = useState("");
   const [comments, setComments] = useState("");
 
-  const imagePickerHandler = async () => {};
+  const storeHandler = async (option) => {
+    const selected = storeData[option.value];
+    const data = selected.data.flavours;
 
-  const storeHandler = async () => {};
+    const list = [];
+    for (let i = 0; i < data.length; i++) {
+      list.push({
+        label: data[i],
+        value: i,
+      });
+    }
+    setFlavoursList(list);
+  };
+
+  const imagePickerHandler = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      const uri = result.assets[0].uri;
+      setPhotoUri(uri);
+    }
+  };
+
+  const postHandler = async () => {
+    // upload photo
+    const photoUrl = "posts/" + new Date().getTime() + "-media.png";
+    const response = await fetch(photoUri);
+    const blob = await response.blob();
+    const metadata = {
+      contentType: "image/png",
+    };
+    const storageRef = ref(storage, photoUrl);
+    await uploadBytesResumable(storageRef, blob, metadata);
+
+    // upload post
+    const selectedStore = storeData[store];
+    const storeId = selectedStore.id;
+    const selectedFlavours = flavours.map(
+      (index) => selectedStore.data.flavours[index]
+    );
+    const postData = {
+      author: auth.currentUser.uid,
+      caption: comments,
+      flavours: selectedFlavours,
+      likes: [],
+      photo: photoUrl,
+      price,
+      rating,
+      store_id: storeId,
+      timestamp: Timestamp.fromDate(new Date()),
+      title,
+    };
+
+    try {
+      const docRef = await addDoc(collection(db, "Post"), postData);
+      clearData(); // reset to default, empty form
+
+      // go to profile page
+      navigation.navigate("ProfileNavigator");
+    } catch (e) {
+      alert("Server is busy. Try again in a few minutes.");
+    }
+  };
 
   const getStars = (rating) => {};
 
@@ -244,6 +313,20 @@ const NewPostScreen = ({ navigation }) => {
                 value={comments}
               ></Input>
             </View>
+            <PrimaryButton
+              disabled={
+                photoUri === "" ||
+                title === "" ||
+                rating === 0 ||
+                store === "" ||
+                price === "" ||
+                flavours.length === 0 ||
+                comments === ""
+              }
+              onPress={postHandler}
+            >
+              Post
+            </PrimaryButton>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
