@@ -1,6 +1,6 @@
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import HomeNavigator from './HomeNavigator';
+import HomeNavigator from "./HomeNavigator";
 import SearchScreen from "../screens/SearchScreen";
 import NewPostScreen from "../screens/NewPostScreen";
 import DiscoverNavigator from "./DiscoverNavigator";
@@ -21,6 +21,9 @@ const RootNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         // headerShown: false,
+        headerTitleStyle: {
+          fontFamily: "Comfortaa_400Regular",
+        },
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "white",
         tabBarStyle: {
@@ -43,8 +46,12 @@ const RootNavigator = () => {
               <HomeIcon size={size} color={color} strokeWidth={2} />
             </View>
           ),
-          tabBarLabel: ({ focused }) => (<Text className='font-primary text-gray-light text-xs'>{focused ? "Home" : ""}</Text>),
-          headerShown: false
+          tabBarLabel: ({ focused }) => (
+            <Text className="font-primary text-gray-light text-xs">
+              {focused ? "Home" : ""}
+            </Text>
+          ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -65,6 +72,7 @@ const RootNavigator = () => {
               {focused ? "Search" : ""}
             </Text>
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
