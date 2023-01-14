@@ -1,37 +1,38 @@
-import React from "react";
+import React from 'react'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-<<<<<<< HEAD
-import HomeScreen from "../screens/home/HomeScreen";
-import PostScreen from "../screens/common/PostScreen";
-=======
-import HomeScreen from '../screens/home/HomeScreen';
+import SearchScreen from '../screens/search/SearchScreen';
 import PostScreen from '../screens/common/PostScreen';
->>>>>>> main
 
 const Stack = createNativeStackNavigator();
 
-const HomeNavigator = () => {
+const SearchNavigator = () => {
+
   return (
     <Stack.Navigator
       screenOptions={{
         headerTitleStyle: {
           fontFamily: "Comfortaa_400Regular",
-        },
+        }
       }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen 
+        name="Search"
+        component={SearchScreen}
+        options={{
+          headerShown: false
+        }}
+      />
       <Stack.Screen
-        name="HomePost"
+        name="SearchPost"
         component={PostScreen}
         options={({ route }) => ({
-          headerShown: true,
           headerBackTitle: "",
           headerTintColor: "black",
-          title: "",
+          title: route.params.display_name
         })}
       />
     </Stack.Navigator>
-  );
-};
+  )
+}
 
-export default HomeNavigator;
+export default SearchNavigator

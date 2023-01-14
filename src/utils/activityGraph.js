@@ -12,7 +12,6 @@ export const getCoordinates = (percentages) => {
 
   const lengthX = CENTREX - 1 - DOT_RADIUS - PADDING;
   const lengthY = CENTREY - 1 - DOT_RADIUS - PADDING;
-
   
   const max = percentages[0];
   

@@ -16,6 +16,7 @@ const Input = ({
   onPressIcon,
 }) => {
   return (
+<<<<<<< HEAD
     <View
       keyboardShouldPersistTaps="handled"
       className="w-full border-[#00000071] pb-1 border-b flex-row justify-between"
@@ -29,6 +30,10 @@ const Input = ({
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
       />
+=======
+    <View keyboardShouldPersistTaps='handled' className='w-full border-[#00000071] pb-1 border-b flex-row justify-between' style={style}>
+      <TextInput className='text-lg placeholder-[#00000071] font-secondary flex-1 leading-5' placeholder={placeholder} editable value={value} onChangeText={onChangeText} secureTextEntry={secureTextEntry}/>
+>>>>>>> main
       <Pressable hitSlop={10} onPress={onPressIcon}>
         {children}
       </Pressable>
