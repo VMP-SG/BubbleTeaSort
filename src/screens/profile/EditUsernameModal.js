@@ -9,7 +9,7 @@ import { updateProfile } from 'firebase/auth'
 
 const EditUsernameModal = ({ navigation, visible, onClose }) => {
   const profilePictureUrl = useProfilePicture();
-  const [username, setUsername] = useState(auth.currentUser.displayName);
+  const [username, setUsername] = useState(auth.currentUser ? auth.currentUser.displayName : "");
 
   const changeUsernameHandler = async () => {
     await updateProfile(auth.currentUser, {

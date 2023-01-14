@@ -1,6 +1,6 @@
 import { Text, SafeAreaView, View, Image, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import { UserIcon, EyeIcon, EyeSlashIcon } from 'react-native-heroicons/outline';
+import { UserIcon } from 'react-native-heroicons/outline';
 import Input from '../../components/inputs/Input';
 import PrimaryButton from '../../components/buttons/PrimaryButton';
 import { auth } from '../../utils/firebase';

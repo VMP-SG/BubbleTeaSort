@@ -7,9 +7,9 @@ export const getCommitsData = (posts) => {
     const dateString = post.timestamp.toLocaleDateString("en-GB").split("/").reverse().join("-")
     const index = commitsData.findIndex((commitData) => commitData.date = dateString)
     if (index === -1) {
-      commitsData.push({ date: dateString, count: 1 });
+      commitsData.push({ date: dateString, count: post.flavours.length });
     } else {
-      commitsData[index].count++;
+      commitsData[index].count += post.flavours.length;
     }
   });
   return commitsData;
