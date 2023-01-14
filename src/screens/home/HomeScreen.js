@@ -4,7 +4,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { db } from "../../utils/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import PostCard from "../../components/PostCard";
+import PostCard from "../../components/cards/PostCard";
 
 const HomeScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -14,7 +14,7 @@ const HomeScreen = ({ navigation }) => {
     const fetchCurrentLocation = async () => {
       const location = await getLocation();
       setLocation(location);
-    }
+    };
     const fetchPosts = async () => {
       const postQuerySnapshot = await getDocs(collection(db, "Post"));
       const userQuerySnapshot = await getDocs(collection(db, "User"));
@@ -23,7 +23,7 @@ const HomeScreen = ({ navigation }) => {
 
       userQuerySnapshot.forEach((doc) => {
         const data = doc.data();
-        fetchedUsers.push({...data, id: doc.id});
+        fetchedUsers.push({ ...data, id: doc.id });
       });
 
       postQuerySnapshot.forEach((doc) => {
@@ -31,27 +31,39 @@ const HomeScreen = ({ navigation }) => {
         const uid = post.author;
         const user = fetchedUsers.find((fetchedUser) => fetchedUser.id === uid);
         if (user) {
-          fetchedPosts.push({...post, id: doc.id, ...user});
+          fetchedPosts.push({ ...post, id: doc.id, ...user });
         }
       });
       setPosts(fetchedPosts);
-    }
+    };
     fetchCurrentLocation();
     fetchPosts();
   }, []); // TODO: reset this during production
   // },[isFocused]);
 
   return (
-    <View className='p-4 flex-1'>
+    <View className="p-4 flex-1">
       <FlatList
         columnWrapperStyle={{
-          justifyContent: "space-between"
+          justifyContent: "space-between",
         }}
         data={posts}
         numColumns={2}
+<<<<<<< HEAD
+        renderItem={({ item }) => (
+          <PostCard
+            onPress={() => navigation.navigate("Post", item)}
+            location={location}
+            post={item}
+            className="w-[48%]"
+          />
+        )}
+      ></FlatList>
+=======
         renderItem={({ item }) => <PostCard onPress={() => navigation.navigate("HomePost", item)} location={location} post={item} className='w-[48%]' />}
       >
       </FlatList>
+>>>>>>> main
     </View>
   );
 };
