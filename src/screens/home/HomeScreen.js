@@ -49,7 +49,6 @@ const HomeScreen = ({ navigation }) => {
         }}
         data={posts}
         numColumns={2}
-<<<<<<< HEAD
         renderItem={({ item }) => (
           <PostCard
             onPress={() => navigation.navigate("Post", item)}
@@ -59,11 +58,6 @@ const HomeScreen = ({ navigation }) => {
           />
         )}
       ></FlatList>
-=======
-        renderItem={({ item }) => <PostCard onPress={() => navigation.navigate("HomePost", item)} location={location} post={item} className='w-[48%]' />}
-      >
-      </FlatList>
->>>>>>> main
     </View>
   );
 };
