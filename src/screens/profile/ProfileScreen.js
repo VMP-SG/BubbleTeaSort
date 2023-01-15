@@ -268,7 +268,7 @@ const ProfileScreen = ({ route, navigation }) => {
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         data.timestamp = new Date(data.timestamp.seconds * 1000);
-        queriedPostData.push(data);
+        queriedPostData.push({ ...data, post_id: doc.id });
       });
       setPosts(queriedPostData);
     })();

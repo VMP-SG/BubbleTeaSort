@@ -34,7 +34,7 @@ const HomeScreen = ({ navigation }) => {
           (fetchedUser) => fetchedUser.id === uid
         );
         if (user) {
-          fetchedPosts.push({ ...post, id: doc.id, ...user });
+          fetchedPosts.push({ ...post, post_id: doc.id, ...user });
         }
       });
       setPosts(fetchedPosts);

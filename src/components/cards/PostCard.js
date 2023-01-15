@@ -29,7 +29,7 @@ const PostCard = ({ post, location, style, onPress }) => {
 
   const likeHandler = async () => {
     if (auth.currentUser) {
-      const postRef = doc(db, "Post", post.id);
+      const postRef = doc(db, "Post", post.post_id);
       if (isLiked) {
         await updateDoc(postRef, {
           likes: arrayRemove(auth.currentUser.uid),

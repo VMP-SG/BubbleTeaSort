@@ -26,7 +26,7 @@ const PostScreen = ({ route, navigation }) => {
 
   const likeHandler = async () => {
     if (auth.currentUser) {
-      const postRef = doc(db, "Post", post.id);
+      const postRef = doc(db, "Post", post.post_id);
       if (isLiked) {
         await updateDoc(postRef, {
           likes: arrayRemove(auth.currentUser.uid),
