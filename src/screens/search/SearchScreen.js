@@ -261,8 +261,8 @@ const SearchScreen = ({ navigation }) => {
     if (auth.currentUser) {
       fetchSearchHistory();
     }
-  }, []); // TODO: reset this during production
-  // },[isFocused]);
+  // }, []); // TODO: reset this during production
+  },[isFocused]);
 
   const searchHandler = async ({ nativeEvent: { text } }) => {
     setSearchWord(text);

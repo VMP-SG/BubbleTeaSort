@@ -41,8 +41,8 @@ const HomeScreen = ({ navigation }) => {
     };
     fetchCurrentLocation();
     fetchPosts();
-  }, []); // TODO: reset this during production
-  // },[isFocused]);
+  // }, []); // TODO: reset this during production
+  },[isFocused]);
 
   return (
     <View className="px-4 pt-4 flex-1 mb-12">

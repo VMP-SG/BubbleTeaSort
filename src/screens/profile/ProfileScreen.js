@@ -272,7 +272,9 @@ const ProfileScreen = ({ route, navigation }) => {
       });
       setPosts(queriedPostData);
     })();
-  }, []); // TODO: add isFocused here
+  // }, []); // TODO: add isFocused here
+  }, [isFocused]); // TODO: add isFocused here
+
 
   return (
     <SafeAreaView className="flex-1">
