@@ -33,7 +33,7 @@ const NewPostScreen = ({ navigation }) => {
   const [photoUri, setPhotoUri] = useState("");
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState(0);
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [comments, setComments] = useState("");
 
   const isFocused = useIsFocused();
@@ -144,7 +144,6 @@ const NewPostScreen = ({ navigation }) => {
       setPhotoUri(uri);
     }
   };
-
   const postHandler = async () => {
     // upload photo
     const photoUrl = "posts/" + new Date().getTime() + "-media.png";
@@ -332,7 +331,7 @@ const NewPostScreen = ({ navigation }) => {
                 $
               </Text>
               <Input
-                onChangeText={(text) => setPrice(text)}
+                onChangeText={(text) => setPrice(parseFloat(text))}
                 value={price}
                 style={{ paddingLeft: 18 }}
                 keyboardType="numeric"
