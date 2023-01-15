@@ -135,7 +135,7 @@ const SearchScreen = ({ navigation }) => {
         const uid = post.author;
         const user = fetchedUsers.find((fetchedUser) => fetchedUser.id === uid);
         if (user) {
-          fetchedPosts.push({...post, id: doc.id, ...user});
+          fetchedPosts.push({...post, post_id: doc.id, ...user});
         }
       });
 
