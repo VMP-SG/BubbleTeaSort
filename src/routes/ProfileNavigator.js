@@ -8,6 +8,7 @@ import ResetPasswordScreen from '../screens/profile/ResetPasswordScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import { auth } from '../utils/firebase';
 import ChangePasswordScreen from '../screens/profile/ChangePasswordScreen';
+import PostScreen from '../screens/common/PostScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -61,6 +62,16 @@ const ProfileNavigator = () => {
           },
           title: "Settings"
         }}
+      />
+      <Stack.Screen 
+        name="ProfilePosts"
+        component={PostScreen}
+        options={({ route }) => ({
+          headerShown: true,
+          headerBackTitle: "",
+          headerTintColor: "black",
+          title: route.params.display_name,
+        })}
       />
     </Stack.Navigator>
   )
