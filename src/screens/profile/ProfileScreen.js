@@ -180,7 +180,7 @@ const PostsView = ({
       data={posts}
       numColumns={2}
       renderItem={({ item }) => (
-        <PostCard location={location} post={item} className="w-[48%]" onPress={() => navigation.navigate("ProfilePosts", item)} />
+        <PostCard location={location} post={item} className="w-[48%]" onPress={() => navigation.navigate("ProfilePosts", {...item, timestamp: ""})} />
       )}
     />
   );
