@@ -70,7 +70,7 @@ const ProfileNavigator = () => {
           headerShown: true,
           headerBackTitle: "",
           headerTintColor: "black",
-          title: route.params.display_name,
+          title: "",
         })}
       />
     </Stack.Navigator>
