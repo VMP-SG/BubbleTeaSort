@@ -45,43 +45,44 @@ const ExternalLinkButton = ({ onPress }) => {
 };
 
 export default function ({ route, navigation }) {
-  // const [storeData, setStoreData] = useState({});
-  // const [time, setTime] = useState();
-  // const [flavours, setFlavours] = useState();
+  const [storeData, setStoreData] = useState({});
+  const [time, setTime] = useState();
+  const [flavours, setFlavours] = useState();
   const [posts, setPosts] = useState([]);
   const [img, setImg] = useState();
   const id = route.params?.id;
-  const rating = route.params?.rating;
-  const count = route.params?.count;
-
-  const storeData = stores.find((store) => store.id === id);
-  let time, flavours;
-  if (storeData) {
-    time = storeData.hours.split(", ").join("\n");
-    flavours = storeData.flavours.slice(0, 3).join("\n")
-  }
-
-  switch (storeData.brand.slice(0, 3).toLowerCase()) {
-    case "chi":
-      setImg(chi);
-      break;
-    case "gon":
-      setImg(gon);
-      break;
-    case "koi":
-      setImg(koi);
-      break;
-    case "lih":
-      setImg(lih);
-      break;
-    case "pla":
-      setImg(pla);
-      break;
-    default:
-      setImg(chi);
-  }
 
   useEffect(() => {
+    const sd = stores.find((store) => store.id === id);
+    let time, flavours;
+    if (sd) {
+      time = sd.hours.split(", ").join("\n");
+      flavours = sd.flavours.slice(0, 3).join("\n");
+      setTime(time);
+      setFlavours(flavours);
+    }
+
+    setStoreData(sd);
+
+    switch (sd.brand.slice(0, 3).toLowerCase()) {
+      case "chi":
+        setImg(chi);
+        break;
+      case "gon":
+        setImg(gon);
+        break;
+      case "koi":
+        setImg(koi);
+        break;
+      case "lih":
+        setImg(lih);
+        break;
+      case "pla":
+        setImg(pla);
+        break;
+      default:
+        setImg(chi);
+    }
     getPostDataByStoreID(id).then(async (d) => {
       let fetchedUsers = [];
       let fetchedPosts = [];
@@ -100,7 +101,7 @@ export default function ({ route, navigation }) {
       setPosts(fetchedPosts);
     });
   }, []);
-  
+
   return (
     <View>
       <ScrollView
