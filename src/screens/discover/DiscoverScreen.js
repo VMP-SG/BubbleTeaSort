@@ -7,7 +7,11 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import FilterButton from "../../components/buttons/FilterButton";
 import { db } from "../../utils/firebase";
 import { collection, query, getDocs } from "firebase/firestore";
-import { getLocation, getDistanceFromLatLonInKm, calcDistance } from "../../utils/location";
+import {
+  getLocation,
+  getDistanceFromLatLonInKm,
+  calcDistance,
+} from "../../utils/location";
 import * as sort from "../../utils/sorting";
 import stores from "../../data/stores.json";
 
@@ -63,7 +67,7 @@ const DiscoverScreen = ({ route, navigation }) => {
       for (const post of Object.keys(postCount)) {
         ratingAvg[post] /= postCount[post];
       }
-      
+
       // const q2 = query(collection(db, "Store"));
       const location = await getLocation();
       // const querySnapshot2 = await getDocs(q2);
@@ -97,7 +101,6 @@ const DiscoverScreen = ({ route, navigation }) => {
 
       const storesWithData = stores.map((store) => {
         let rating, count;
-        console.log(store);
         const distance = calcDistance(
           location.coords.latitude,
           location.coords.longitude,
@@ -111,13 +114,13 @@ const DiscoverScreen = ({ route, navigation }) => {
           rating = 0;
           count = 0;
         }
-        return ({
+        return {
           ...store,
           distance,
           rating,
-          count
-        });
-      })
+          count,
+        };
+      });
 
       storesWithData.sort((a, b) => a.distance > b.distance);
       setOverallList(storesWithData);
