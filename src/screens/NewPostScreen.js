@@ -296,24 +296,24 @@ const NewPostScreen = ({ navigation }) => {
                 }}
                 itemTextStyle={{
                   fontFamily: "Raleway_400Regular",
-                  fontSize: "16px",
+                  fontSize: 16,
                   color: "#1D1D26",
                 }}
                 activeColor={"#CEB195"}
                 placeholderStyle={{
                   fontFamily: "Raleway_400Regular",
-                  fontSize: "16px",
+                  fontSize: 16,
                   color: "#00000071",
                 }}
                 selectedTextStyle={{
                   fontFamily: "Raleway_400Regular",
-                  fontSize: "16px",
+                  fontSize: 16,
                   color: "#000000",
                 }}
                 inputSearchStyle={{
                   backgroundColor: "#EADAC1",
                   fontFamily: "Raleway_400Regular",
-                  fontSize: "16px",
+                  fontSize: 16,
                   color: "#00000071",
                   padding: 3,
                 }}
@@ -376,7 +376,7 @@ const NewPostScreen = ({ navigation }) => {
                 }}
                 itemTextStyle={{
                   fontFamily: "Raleway_400Regular",
-                  fontSize: "16px",
+                  fontSize: 16,
                   color: "#1D1D26",
                 }}
                 activeColor={"#CEB195"}
@@ -386,7 +386,7 @@ const NewPostScreen = ({ navigation }) => {
                 inputSearchStyle={{
                   backgroundColor: "#EADAC1",
                   fontFamily: "Raleway_400Regular",
-                  fontSize: "16px",
+                  fontSize: 16,
                   color: "#00000071",
                   padding: 3,
                 }}
