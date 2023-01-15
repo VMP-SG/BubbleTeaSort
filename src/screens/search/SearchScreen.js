@@ -41,6 +41,7 @@ const PostsView = ({ posts, navigation, location }) => {
       }}
       data={posts}
       numColumns={2}
+      keyExtractor={(_, index) => index}
       renderItem={({ item }) => (
         <PostCard
           onPress={() => navigation.navigate("SearchPost", item)}

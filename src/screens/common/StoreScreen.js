@@ -51,6 +51,7 @@ export default function ({ route, navigation }) {
   const [posts, setPosts] = useState([]);
   const [img, setImg] = useState();
   const id = route.params?.id;
+  const rating = route.params?.rating;
 
   useEffect(() => {
     const sd = stores.find((store) => store.id === id);
@@ -119,7 +120,7 @@ export default function ({ route, navigation }) {
           <View className="w-screen items-center justify-center">
             <View className="mt-2 mb-4 flex-row items-center">
               {Array.from(Array(5), (e, i) =>
-                i < storeData.rating ? (
+                i < rating ? (
                   <StarIcon
                     fill="black"
                     style={{
