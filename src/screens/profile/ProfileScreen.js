@@ -26,6 +26,7 @@ import {
 import { getLocation } from "../../utils/location";
 import { useIsFocused } from "@react-navigation/native";
 import PostCard from "../../components/cards/PostCard";
+import { posts as dataPosts } from "../../data/post";
 
 const SummaryView = ({ posts }) => {
   const commitsData = getCommitsData(posts);

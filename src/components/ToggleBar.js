@@ -1,5 +1,5 @@
-import { View, Text, Pressable } from 'react-native'
-import React from 'react'
+import { View, Text, Pressable } from "react-native";
+import React from "react";
 
 // showLeft: true -> selects left toggle (should be a state element)
 // setShowLeft: function to toggle left
@@ -20,4 +20,4 @@ const ToggleBar = ({ showLeft, setShowLeft, style, leftText, rightText }) => {
   )
 }
 
-export default ToggleBar
+export default ToggleBar;

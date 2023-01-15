@@ -70,18 +70,7 @@ export const getActivityPercentagesAndLabels = async (posts) => {
     if (index !== -1) {
       storesPercentage[index].brand = store.brand;
     }
-  })
-
-  // querySnapshot.forEach((doc) => {
-  //   const data = doc.data();
-  //   const id = doc.id;
-  //   const index = storesPercentage.findIndex(
-  //     (storePercentage) => storePercentage.id === id
-  //   );
-  //   if (index !== -1) {
-  //     storesPercentage[index].brand = data.brand;
-  //   }
-  // });
+  });
 
   const brandsPercentage = [];
   storesPercentage.forEach((storePercentage) => {
