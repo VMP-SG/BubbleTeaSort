@@ -10,6 +10,7 @@ export const getCommitsData = (posts) => {
       .split("/")
       .reverse()
       .join("-");
+
     const index = commitsData.findIndex(
       (commitData) => commitData.date === dateString
     );
@@ -81,20 +82,25 @@ export const getActivityPercentagesAndLabels = async (posts) => {
       (brandPercentage) => brandPercentage.brand === brand
     );
     if (index === -1) {
-      brandsPercentage.push({ brand, percentage: storePercentage.percentage });
+      brandsPercentage.push({
+        brand,
+        percentage: storePercentage.percentage,
+      });
     } else {
-      brandsPercentage[index].count += storesPercentage.count;
+      brandsPercentage[index].percentage += storePercentage.percentage;
     }
   });
 
   brandsPercentage.sort((a, b) => b.percentage > a.percentage);
 
+  console.log(brandsPercentage);
+
   let [top, second, third, ...fourth] = brandsPercentage;
   const placeholders = [
-    { brand: "KOI Thé", percentage: 0 },
+    { brand: "KOI", percentage: 0 },
     { brand: "LiHo", percentage: 0 },
     { brand: "Gong Cha", percentage: 0 },
-    { brand: "PlayMade", percentage: 0 },
+    { brand: "Playmade", percentage: 0 },
   ];
 
   if (!top) {
