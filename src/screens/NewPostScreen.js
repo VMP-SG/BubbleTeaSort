@@ -34,7 +34,7 @@ const NewPostScreen = ({ navigation }) => {
   const [photoUri, setPhotoUri] = useState("");
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
   const [comments, setComments] = useState("");
 
   const isFocused = useIsFocused();
@@ -61,10 +61,12 @@ const NewPostScreen = ({ navigation }) => {
       // const querySnapshot = await getDocs(collection(db, "Store"));
 
       // const allStores = [];
+      const lat = location.coords.latitude;
+      const long = location.coords.longitude;
       const storesWithDistance = stores.map((store) => {
         const distance = calcDistance(
-          location.coords.latitude,
-          location.coords.longitude,
+          lat,
+          long,
           store.coordinates.latitude,
           store.coordinates.longitude
         );
@@ -110,7 +112,7 @@ const NewPostScreen = ({ navigation }) => {
     setTitle("");
     setRating(0);
     setStore("");
-    setPrice(0);
+    setPrice("");
     setFlavours([]);
     setComments("");
   };
@@ -174,7 +176,7 @@ const NewPostScreen = ({ navigation }) => {
       flavours: selectedFlavours,
       likes: [],
       photo: photoUrl,
-      price,
+      price: parseFloat(price),
       rating,
       store_id: storeId,
       timestamp: Timestamp.fromDate(new Date()),
@@ -331,7 +333,7 @@ const NewPostScreen = ({ navigation }) => {
                 $
               </Text>
               <Input
-                onChangeText={(text) => setPrice(parseFloat(text))}
+                onChangeText={(text) => setPrice(text)}
                 value={price}
                 style={{ paddingLeft: 18 }}
                 keyboardType="numeric"
@@ -423,7 +425,7 @@ const NewPostScreen = ({ navigation }) => {
                 title === "" ||
                 rating === 0 ||
                 store === "" ||
-                price === 0 ||
+                price === "" ||
                 flavours.length === 0 ||
                 comments === ""
               }
