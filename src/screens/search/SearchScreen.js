@@ -154,7 +154,7 @@ const SearchScreen = ({ navigation }) => {
             </Pressable>
           </View>
         </View>
-        {searchWord === "" ? <SearchHistoryView searchHistory={searchHistory} fetchSearchHistory={fetchSearchHistory} /> : <SearchView posts={filteredPosts} location={location} navigation={navigation} />}
+        {searchWord === "" ? <SearchHistoryView searchHistory={searchHistory} fetchSearchHistory={fetchSearchHistory} /> : <SearchView posts={filteredPosts} location={location} navigation={navigation} stores={filteredStores} />}
         </>
       </Pressable>
     </SafeArea>
