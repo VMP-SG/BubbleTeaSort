@@ -70,7 +70,7 @@ const ProfileNavigator = () => {
           headerShown: true,
           headerBackTitle: "",
           headerTintColor: "black",
-          title: "",
+          title: currentUser ? currentUser.displayName : "",
         })}
       />
     </Stack.Navigator>
