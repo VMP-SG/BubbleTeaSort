@@ -136,12 +136,12 @@ const SearchScreen = ({ navigation }) => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [location, setLocation] = useState(null);
   const filteredPosts = posts
-    .filter((post) => post.title.includes(searchInput))
+    .filter((post) => post.title.toLowerCase().includes(searchInput))
     .slice(0, 10);
   const filteredStores = stores
     .filter(
       (store) =>
-        store.name.includes(searchInput) || store.brand.includes(searchInput)
+        store.name.toLowerCase().includes(searchInput) || store.brand.toLowerCase().includes(searchInput)
     )
     .slice(0, 10);
 
