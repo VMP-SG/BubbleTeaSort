@@ -57,16 +57,22 @@ const filterStars = (currentList, filters) => {
 };
 
 const filterStore = (currentList, filters) => {
-  const options = [filters.liho, filters.koi];
+  const options = [
+    [filters.liho, "LiHO"],
+    [filters.chicha, "CHICHA San Chen"],
+    [filters.gongcha, "Gong Cha"],
+    [filters.koi, "KOI"],
+    [filters.playmade, "Playmade"],
+  ];
   if (options.every((item) => !item)) {
     return currentList;
   }
   var newList = [];
-  for (var i = 0; i < 2; i++) {
-    if (options[i]) {
+  for (var i = 0; i < 5; i++) {
+    if (options[i][0]) {
       const tempList = [];
       for (const item of currentList) {
-        if (item.rating >= i && item.rating < i + 1) {
+        if (options[i][1] == item.brand) {
           tempList.push(item);
         }
       }

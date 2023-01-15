@@ -2,6 +2,7 @@ import React from 'react'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SearchScreen from '../screens/search/SearchScreen';
 import PostScreen from '../screens/common/PostScreen';
+import StoreScreen from '../screens/common/StoreScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,15 @@ const SearchNavigator = () => {
           headerTintColor: "black",
           title: route.params.display_name
         })}
+      />
+      <Stack.Screen 
+        name="SearchStore"
+        component={StoreScreen}
+        options={{
+          title: "Search",
+          headerTintColor: "black",
+          headerBackTitle: ""
+        }}
       />
     </Stack.Navigator>
   )

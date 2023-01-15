@@ -9,11 +9,18 @@ import {
   FlatList,
 } from "react-native";
 import StorePageCard from "../../components/cards/StorePageCard";
-import { getStoreData, getPostDataByStoreID, db } from "../../utils/firebase";
+import { db, getPostDataByStoreID } from "../../utils/firebase";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { HeartIcon, StarIcon } from "react-native-heroicons/solid";
+import { StarIcon as StarIconOutline } from "react-native-heroicons/outline";
 import { getDocs, collection } from "firebase/firestore";
+import stores from "../../data/stores.json";
 
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+import chi from "../../../assets/chi.png";
+import gon from "../../../assets/gon.png";
+import koi from "../../../assets/koi.png";
+import lih from "../../../assets/lih.png";
+import pla from "../../../assets/pla.png";
 
 const IconText = ({ iconName, text, style, additionalButton }) => {
   return (
@@ -38,19 +45,43 @@ const ExternalLinkButton = ({ onPress }) => {
 };
 
 export default function ({ route, navigation }) {
-  const [storeData, setStoreData] = useState({});
-  const [time, setTime] = useState();
-  const [flavours, setFlavours] = useState();
+  // const [storeData, setStoreData] = useState({});
+  // const [time, setTime] = useState();
+  // const [flavours, setFlavours] = useState();
   const [posts, setPosts] = useState([]);
+  const [img, setImg] = useState();
   const id = route.params?.id;
   const rating = route.params?.rating;
   const count = route.params?.count;
+
+  const storeData = stores.find((store) => store.id === id);
+  let time, flavours;
+  if (storeData) {
+    time = storeData.hours.split(", ").join("\n");
+    flavours = storeData.flavours.slice(0, 3).join("\n")
+  }
+
+  switch (storeData.brand.slice(0, 3).toLowerCase()) {
+    case "chi":
+      setImg(chi);
+      break;
+    case "gon":
+      setImg(gon);
+      break;
+    case "koi":
+      setImg(koi);
+      break;
+    case "lih":
+      setImg(lih);
+      break;
+    case "pla":
+      setImg(pla);
+      break;
+    default:
+      setImg(chi);
+  }
+
   useEffect(() => {
-    getStoreData(id).then((d) => {
-      setStoreData(d);
-      setTime(d.hours.split(", ").join("\n"));
-      setFlavours(d.flavours.slice(0, 3).join("\n"));
-    });
     getPostDataByStoreID(id).then(async (d) => {
       let fetchedUsers = [];
       let fetchedPosts = [];
@@ -69,6 +100,7 @@ export default function ({ route, navigation }) {
       setPosts(fetchedPosts);
     });
   }, []);
+  
   return (
     <View>
       <ScrollView
@@ -78,11 +110,35 @@ export default function ({ route, navigation }) {
           justifyContent: "center",
         }}
       >
-        <Image source={require("../../../assets/lihotea.jpg")} />
+        <Image source={img} />
         <View className="px-4 pt-2 pb-16">
-          <Text className="px-4 text-center font-primary-light text-3xl">
-            {storeData.brand} @ {storeData.name}
+          <Text className="px-8 text-center font-primary-light text-3xl">
+            {`${storeData.brand} @ ${storeData.name}`}
           </Text>
+          <View className="w-screen items-center justify-center">
+            <View className="mt-2 mb-4 flex-row items-center">
+              {Array.from(Array(5), (e, i) =>
+                i < storeData.rating ? (
+                  <StarIcon
+                    fill="black"
+                    style={{
+                      marginLeft: i > 0 ? 8 : 0,
+                    }}
+                    key={i}
+                  />
+                ) : (
+                  <StarIconOutline
+                    stroke="black"
+                    style={{
+                      marginLeft: 8,
+                    }}
+                    strokeWidth={2}
+                    key={i}
+                  />
+                )
+              )}
+            </View>
+          </View>
           <IconText
             iconName="map-marker"
             text={storeData.address}

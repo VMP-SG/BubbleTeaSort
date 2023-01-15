@@ -61,17 +61,17 @@ const StorePageCard = ({ post, style, onPress }) => {
           {post.title}
         </Text>
         <View className="flex-row justify-between mt-6">
-          <View className="flex-row">
+          <View className="flex-row items-center">
             <Pressable hitSlop={10} onPress={likeHandler}>
               <HeartIcon
-                size={20}
+                size={16}
                 color="transparent"
                 stroke="black"
                 fill={isLiked ? "#E92424" : "transparent"}
                 strokeWidth={2}
               />
             </Pressable>
-            <Text className="font-secondary text-base ml-1">
+            <Text className="font-secondary text-sm ml-1">
               {nFormatter(likeCount, 1)}
             </Text>
           </View>

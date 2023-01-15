@@ -19,10 +19,9 @@ const HomeNavigator = () => {
         name="HomePost"
         component={PostScreen}
         options={({ route }) => ({
-          headerShown: true,
           headerBackTitle: "",
           headerTintColor: "black",
-          title: "",
+          title: route.params.display_name,
         })}
       />
     </Stack.Navigator>

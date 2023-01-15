@@ -10,11 +10,11 @@ import React from 'react'
 const ToggleBar = ({ showLeft, setShowLeft, style, leftText, rightText }) => {
   return (
     <View className='flex-row' style={style}>
-    <Pressable className={`${showLeft ? "" : "border-b-2"} py-3 flex-1`} onPress={() => setShowLeft(false)}>
-      <Text className={`${showLeft ? "font-primary" : "font-primary-bold"} text-xl text-center`}>{leftText}</Text>
-    </Pressable>
     <Pressable className={`${showLeft ? "border-b-2" : ""} py-3 flex-1`} onPress={() => setShowLeft(true)}>
-      <Text className={`${showLeft ? "font-primary-bold" : "font-primary"} text-xl text-center`}>{rightText}</Text>
+      <Text className={`${showLeft ? "font-primary-bold" : "font-primary"} text-xl text-center`}>{leftText}</Text>
+    </Pressable>
+    <Pressable className={`${showLeft ? "" : "border-b-2"} py-3 flex-1`} onPress={() => setShowLeft(false)}>
+      <Text className={`${showLeft ? "font-primary" : "font-primary-bold"} text-xl text-center`}>{rightText}</Text>
     </Pressable>
   </View>
   )

@@ -7,8 +7,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import FilterButton from "../../components/buttons/FilterButton";
 import { db } from "../../utils/firebase";
 import { collection, query, getDocs } from "firebase/firestore";
-import { getLocation, getDistanceFromLatLonInKm } from "../../utils/location";
+import { getLocation, getDistanceFromLatLonInKm, calcDistance } from "../../utils/location";
 import * as sort from "../../utils/sorting";
+import stores from "../../data/stores.json";
 
 const DiscoverScreen = ({ route, navigation }) => {
   const [isMap, setIsMap] = useState(true);
@@ -48,6 +49,7 @@ const DiscoverScreen = ({ route, navigation }) => {
         // doc.data() is never undefined for query doc snapshots
         queriedPostData.push(doc.data());
       });
+
       for (const post of queriedPostData) {
         if (post.store_id in postCount) {
           postCount[post.store_id]++;
@@ -57,41 +59,69 @@ const DiscoverScreen = ({ route, navigation }) => {
           ratingAvg[post.store_id] = post.rating;
         }
       }
+
       for (const post of Object.keys(postCount)) {
         ratingAvg[post] /= postCount[post];
       }
-      const q2 = query(collection(db, "Store"));
+      
+      // const q2 = query(collection(db, "Store"));
       const location = await getLocation();
-      const querySnapshot2 = await getDocs(q2);
-      const queriedStoreData = [];
-      querySnapshot2.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        var distance, rating, count;
-        if (doc.data()?.coordinates) {
-          distance = getDistanceFromLatLonInKm(
-            location.coords.latitude,
-            location.coords.longitude,
-            doc.data().coordinates.latitude,
-            doc.data().coordinates.longitude
-          );
-        }
-        if (doc.id in postCount) {
-          rating = ratingAvg[doc.id];
-          count = postCount[doc.id];
+      // const querySnapshot2 = await getDocs(q2);
+      // const queriedStoreData = [];
+      // querySnapshot2.forEach((doc) => {
+      //   // doc.data() is never undefined for query doc snapshots
+      //   var distance, rating, count;
+      //   if (doc.data()?.coordinates) {
+      //     distance = getDistanceFromLatLonInKm(
+      //       location.coords.latitude,
+      //       location.coords.longitude,
+      //       doc.data().coordinates.latitude,
+      //       doc.data().coordinates.longitude
+      //     );
+      //   }
+      //   if (doc.id in postCount) {
+      //     rating = ratingAvg[doc.id];
+      //     count = postCount[doc.id];
+      //   } else {
+      //     rating = 0;
+      //     count = 0;
+      //   }
+      //   queriedStoreData.push({
+      //     ...doc.data(),
+      //     distance,
+      //     id: doc.id,
+      //     rating,
+      //     count,
+      //   });
+      // });
+
+      const storesWithData = stores.map((store) => {
+        let rating, count;
+        console.log(store);
+        const distance = calcDistance(
+          location.coords.latitude,
+          location.coords.longitude,
+          store.coordinates.latitude,
+          store.coordinates.longitude
+        );
+        if (store.id in postCount) {
+          rating = ratingAvg[store.id];
+          count = postCount[store.id];
         } else {
           rating = 0;
           count = 0;
         }
-        queriedStoreData.push({
-          ...doc.data(),
+        return ({
+          ...store,
           distance,
-          id: doc.id,
           rating,
-          count,
+          count
         });
-      });
-      setOverallList(queriedStoreData);
-      setOriginalList(queriedStoreData);
+      })
+
+      storesWithData.sort((a, b) => a.distance > b.distance);
+      setOverallList(storesWithData);
+      setOriginalList(storesWithData);
     })();
   }, []);
   useEffect(() => {

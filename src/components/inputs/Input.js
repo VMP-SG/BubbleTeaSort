@@ -14,6 +14,7 @@ const Input = ({
   style,
   secureTextEntry,
   onPressIcon,
+  keyboardType,
 }) => {
   return (
     <View
@@ -22,12 +23,14 @@ const Input = ({
       style={style}
     >
       <TextInput
-        className="text-lg placeholder-[#00000071] font-secondary flex-1"
+        className="text-lg font-secondary flex-1 leading-5"
         placeholder={placeholder}
+        placeholderTextColor={value === "" ? "#00000071" : "#000000"}
         editable
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType ?? "default"}
       />
       <Pressable hitSlop={10} onPress={onPressIcon}>
         {children}
