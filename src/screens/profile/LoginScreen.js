@@ -29,6 +29,7 @@ const LoginScreen = ({ navigation }) => {
               placeholder="Email"
               value={email}
               className="mb-12"
+              keyboardType={"email-address"}
             >
               <UserIcon size={24} color="#00000071" />
             </Input>
