@@ -92,7 +92,8 @@ const SummaryView = ({ posts }) => {
               backgroundGradientTo: "#FFFFFF",
               backgroundGradientToOpacity: 0,
               fillShadowGradientFrom: "#FFFFFF",
-              color: (opacity = 1) => `rgba(64, 47, 31, ${opacity})`,
+              color: (opacity = 1) =>
+                `rgba(64, 47, 31, ${opacity < 0.2 ? 0.1 : Math.sqrt(opacity)})`,
               labelColor: (opacity = 0.44) => `rgba(00, 00, 00, ${opacity})`,
               propsForLabels: {
                 translateY: 24,

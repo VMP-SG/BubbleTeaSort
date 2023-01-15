@@ -11,7 +11,7 @@ export const getCommitsData = (posts) => {
       .reverse()
       .join("-");
     const index = commitsData.findIndex(
-      (commitData) => (commitData.date = dateString)
+      (commitData) => commitData.date === dateString
     );
     if (index === -1) {
       commitsData.push({ date: dateString, count: post.flavours.length });
@@ -66,7 +66,9 @@ export const getActivityPercentagesAndLabels = async (posts) => {
 
   stores.forEach((store) => {
     const id = store.id;
-    const index = storesPercentage.findIndex((storesPercentage) => storesPercentage.id === id);
+    const index = storesPercentage.findIndex(
+      (storesPercentage) => storesPercentage.id === id
+    );
     if (index !== -1) {
       storesPercentage[index].brand = store.brand;
     }
