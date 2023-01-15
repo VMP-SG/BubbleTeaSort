@@ -26,12 +26,13 @@ import {
 import { getLocation } from "../../utils/location";
 import { useIsFocused } from "@react-navigation/native";
 import PostCard from "../../components/cards/PostCard";
-import { posts as dataPosts } from "../../data/post";
 
 const SummaryView = ({ posts }) => {
   const commitsData = getCommitsData(posts);
   const pastMonthCupCount = getCupsInPastMonth(posts);
   const pastMonthSpending = getSpendingInPastMonth(posts);
+
+  console.log(posts, commitsData);
 
   const [labels, setLabels] = useState(["", "", "", ""]);
   const [percentages, setPercentages] = useState([0, 0, 0, 0]);
@@ -121,13 +122,13 @@ const SummaryView = ({ posts }) => {
       <Text className="font-primary-bold text-2xl mt-6 mb-2">Activity</Text>
       <View className="rounded-xl bg-brown-400 w-full p-4 justify-center items-center mb-16">
         <Text className="font-secondary text-base text-gray-light-transparent">
-          {percentages[1]}%
+          {Math.round(percentages[1] * 10) / 10}%
         </Text>
         <Text className="font-primary text-base">{labels[1]}</Text>
         <View className="flex-row items-center">
           <View className="flex-1">
             <Text className="font-secondary text-base text-gray-light-transparent text-right">
-              {percentages[0]}%
+              {Math.round(percentages[0] * 10) / 10}%
             </Text>
             <Text className="font-primary text-base text-right">
               {labels[0]}
@@ -136,7 +137,7 @@ const SummaryView = ({ posts }) => {
           <ActivityGraph percentages={percentages} />
           <View className="flex-1">
             <Text className="font-secondary text-base text-gray-light-transparent text-left">
-              {percentages[2]}%
+              {Math.round(percentages[2] * 10) / 10}%
             </Text>
             <Text className="font-primary text-base text-left">
               {labels[2]}
@@ -144,7 +145,7 @@ const SummaryView = ({ posts }) => {
           </View>
         </View>
         <Text className="font-secondary text-base text-gray-light-transparent mt-[-2]">
-          {percentages[3]}%
+          {Math.round(percentages[3] * 10) / 10}%
         </Text>
         <Text className="font-primary text-base">{labels[3]}</Text>
       </View>
