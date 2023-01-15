@@ -16,10 +16,11 @@ const HomeScreen = ({ navigation }) => {
       setLocation(location);
     };
     const fetchPosts = async () => {
+      const fetchedPosts = [];
+      let fetchedUsers = [];
+
       const postQuerySnapshot = await getDocs(collection(db, "Post"));
       const userQuerySnapshot = await getDocs(collection(db, "User"));
-      const fetchedPosts = [];
-      const fetchedUsers = [];
 
       userQuerySnapshot.forEach((doc) => {
         const data = doc.data();
@@ -29,7 +30,9 @@ const HomeScreen = ({ navigation }) => {
       postQuerySnapshot.forEach((doc) => {
         const post = doc.data();
         const uid = post.author;
-        const user = fetchedUsers.find((fetchedUser) => fetchedUser.id === uid);
+        const user = fetchedUsers.find(
+          (fetchedUser) => fetchedUser.id === uid
+        );
         if (user) {
           fetchedPosts.push({ ...post, id: doc.id, ...user });
         }
@@ -42,19 +45,20 @@ const HomeScreen = ({ navigation }) => {
   // },[isFocused]);
 
   return (
-    <View className="p-4 flex-1">
+    <View className="px-4 pt-4 flex-1 mb-12">
       <FlatList
         columnWrapperStyle={{
           justifyContent: "space-between",
         }}
         data={posts}
         numColumns={2}
+        keyExtractor={(_, index) => index}
         renderItem={({ item }) => (
           <PostCard
-            onPress={() => navigation.navigate("Post", item)}
+            onPress={() => navigation.navigate("HomePost", item)}
             location={location}
             post={item}
-            className="w-[48%]"
+            className="w-[48%] mb-4"
           />
         )}
       ></FlatList>

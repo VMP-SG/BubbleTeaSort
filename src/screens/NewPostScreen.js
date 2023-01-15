@@ -1,28 +1,29 @@
 import {
+  Pressable,
   View,
+  Text,
   SafeAreaView,
   ScrollView,
-  KeyboardAvoidingView,
-  Text,
-  Pressable,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
+import PrimaryButton from "../components/buttons/PrimaryButton";
+import * as ImagePicker from "expo-image-picker";
 import { StarIcon } from "react-native-heroicons/solid";
 import {
   StarIcon as StarIconOutline,
   PlusIcon as PlusIconOutline,
   ChevronDownIcon as ChevronDownIconOutline,
 } from "react-native-heroicons/outline";
-import { Dropdown, MultiSelect } from "react-native-element-dropdown";
-import * as ImagePicker from "expo-image-picker";
-import { addDoc, collection, getDocs, Timestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable } from "firebase/storage";
-import Input from "../components/inputs/Input";
-import PrimaryButton from "../components/buttons/PrimaryButton";
+import { addDoc, collection, getDocs, Timestamp } from "firebase/firestore";
+import { Dropdown, MultiSelect } from "react-native-element-dropdown";
 import { calcDistance, getLocation } from "../utils/location";
 import { db, auth, storage } from "../utils/firebase";
+import Input from "../components/inputs/Input";
+import stores from "../data/stores.json";
 
 const NewPostScreen = ({ navigation }) => {
   const [store, setStore] = useState("");
@@ -56,39 +57,38 @@ const NewPostScreen = ({ navigation }) => {
       return location;
     };
 
-    const getStoreData = async (location) => {
-      const querySnapshot = await getDocs(collection(db, "Store"));
-      const allStores = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
+    const getStoreData = (location) => {
+      // const querySnapshot = await getDocs(collection(db, "Store"));
+
+      // const allStores = [];
+      const storesWithDistance = stores.map((store) => {
         const distance = calcDistance(
           location.coords.latitude,
           location.coords.longitude,
-          data.coordinates.latitude,
-          data.coordinates.longitude
+          store.coordinates.latitude,
+          store.coordinates.longitude
         );
-        data.distance = distance.toFixed(1);
-        allStores.push({
-          id: doc.id,
-          data,
-        });
+        return {
+          ...store,
+          distance: distance.toFixed(1),
+        };
       });
 
-      allStores.sort((first, second) => {
-        if (first.data.distance < second.data.distance) {
+      storesWithDistance.sort((first, second) => {
+        if (first.distance < second.distance) {
           return 1;
-        } else if (first.data.distance > second.data.distance) {
+        } else if (first.distance > second.distance) {
           return -1;
         } else {
           return 0;
         }
       });
 
-      setStoreData(allStores);
+      setStoreData(storesWithDistance);
 
       const storeList = [];
-      for (let i = 0; i < allStores.length; i++) {
-        const currStore = allStores[i].data;
+      for (let i = 0; i < storesWithDistance.length; i++) {
+        const currStore = storesWithDistance[i];
         storeList.push({
           label: currStore.brand + " @ " + currStore.name,
           value: i,
@@ -105,7 +105,6 @@ const NewPostScreen = ({ navigation }) => {
     setup();
   }, [isFocused]);
 
-  // clears state after posting
   const clearData = () => {
     setPhotoUri("");
     setTitle("");
@@ -116,10 +115,31 @@ const NewPostScreen = ({ navigation }) => {
     setComments("");
   };
 
+  // stars for rating
+  const getStars = (rating) => {
+    const getStar = (index) => {
+      return (
+        <Pressable key={index} onPress={() => setRating(index + 1)}>
+          {index < rating ? (
+            <StarIcon fill="black" key={index} />
+          ) : (
+            <StarIconOutline stroke="black" strokeWidth={2} key={index} />
+          )}
+        </Pressable>
+      );
+    };
+
+    return (
+      <View className="flex-row justify-between w-{152}">
+        {[...Array(5).keys()].map(getStar)}
+      </View>
+    );
+  };
+
   // event handlers
   const storeHandler = async (option) => {
     const selected = storeData[option.value];
-    const data = selected.data.flavours;
+    const data = selected.flavours;
 
     const list = [];
     for (let i = 0; i < data.length; i++) {
@@ -131,19 +151,6 @@ const NewPostScreen = ({ navigation }) => {
     setFlavoursList(list);
   };
 
-  const imagePickerHandler = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      const uri = result.assets[0].uri;
-      setPhotoUri(uri);
-    }
-  };
   const postHandler = async () => {
     // upload photo
     const photoUrl = "posts/" + new Date().getTime() + "-media.png";
@@ -159,7 +166,7 @@ const NewPostScreen = ({ navigation }) => {
     const selectedStore = storeData[store];
     const storeId = selectedStore.id;
     const selectedFlavours = flavours.map(
-      (index) => selectedStore.data.flavours[index]
+      (index) => selectedStore.flavours[index]
     );
     const postData = {
       author: auth.currentUser.uid,
@@ -185,25 +192,18 @@ const NewPostScreen = ({ navigation }) => {
     }
   };
 
-  // stars for rating
-  const getStars = (rating) => {
-    const getStar = (index) => {
-      return (
-        <Pressable key={index} onPress={() => setRating(index + 1)}>
-          {index < rating ? (
-            <StarIcon fill="black" key={index} />
-          ) : (
-            <StarIconOutline stroke="black" strokeWidth={2} key={index} />
-          )}
-        </Pressable>
-      );
-    };
+  const imagePickerHandler = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
 
-    return (
-      <View className="flex-row justify-between w-{152}">
-        {[...Array(5).keys()].map(getStar)}
-      </View>
-    );
+    if (!result.canceled) {
+      const uri = result.assets[0].uri;
+      setPhotoUri(uri);
+    }
   };
 
   return (
@@ -216,7 +216,7 @@ const NewPostScreen = ({ navigation }) => {
           scrollEnabled={true}
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{
-            paddingBottom: 72,
+            paddingBottom: 79,
           }}
         >
           <View className="px-4 py-6 items-center justify-center">
@@ -423,7 +423,7 @@ const NewPostScreen = ({ navigation }) => {
                 title === "" ||
                 rating === 0 ||
                 store === "" ||
-                price === "" ||
+                price === 0 ||
                 flavours.length === 0 ||
                 comments === ""
               }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import SecondaryButton from "../../components/buttons/SecondaryButton";
 import CustomCheckBox from "../../components/inputs/CustomCheckBox";
+import { StarIcon } from "react-native-heroicons/solid";
 
 export default function ({ navigation, route }) {
   const { filters } = route.params;
@@ -23,7 +24,10 @@ export default function ({ navigation, route }) {
   const [star01, setStar01] = useState(filters.star01);
   //Store
   const [liho, setLiho] = useState(filters.liho);
+  const [chicha, setChicha] = useState(filters.chicha);
+  const [gongcha, setGongcha] = useState(filters.gongcha);
   const [koi, setKoi] = useState(filters.koi);
+  const [playmade, setPlaymade] = useState(filters.playmade);
   // Sort By (radio)
   const setSortBy = (sorting) => {
     setDistance(false);
@@ -61,7 +65,10 @@ export default function ({ navigation, route }) {
   //Select all stores
   const selectAll = () => {
     setLiho(true);
+    setChicha(true);
+    setGongcha(true);
     setKoi(true);
+    setPlaymade(true);
   };
   // SetFilters
   const applyFilters = () => {
@@ -85,6 +92,9 @@ export default function ({ navigation, route }) {
           star01,
 
           liho,
+          chicha,
+          gongcha,
+          playmade,
           koi,
         },
       },
@@ -109,13 +119,16 @@ export default function ({ navigation, route }) {
     setStar01(false);
 
     setLiho(false);
+    setChicha(false);
+    setGongcha(false);
     setKoi(false);
+    setPlaymade(false);
   };
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="px-4">
       <View>
         <View>
-          <Text className="font-primary-bold text-xl m-2">Sort By</Text>
+          <Text className="font-primary-bold text-xl mt-4 mb-2">Sort By</Text>
           <CustomCheckBox
             value={distance}
             text={"Distance"}
@@ -133,7 +146,7 @@ export default function ({ navigation, route }) {
           />
         </View>
         <View>
-          <Text className="font-primary-bold text-xl m-2">Distance</Text>
+          <Text className="font-primary-bold text-xl my-2">Distance</Text>
           <CustomCheckBox
             value={one}
             text={"< 1 KM"}
@@ -156,36 +169,71 @@ export default function ({ navigation, route }) {
           />
         </View>
         <View>
-          <Text className="font-primary-bold text-xl m-2">Rating</Text>
+          <Text className="font-primary-bold text-xl my-2">Rating</Text>
           <CustomCheckBox
             value={star45}
-            text={"4 - 5 stars"}
+            text={"4 - 5"}
             onPress={() => setStar45(!star45)}
-          />
+          >
+            <StarIcon
+              color="#616161"
+              style={{
+                marginLeft: 4,
+              }}
+            />
+          </CustomCheckBox>
           <CustomCheckBox
             value={star34}
-            text={"3 - 4 stars"}
+            text={"3 - 4"}
             onPress={() => setStar34(!star34)}
-          />
+          >
+            <StarIcon
+              color="#616161"
+              style={{
+                marginLeft: 5,
+              }}
+            />
+          </CustomCheckBox>
           <CustomCheckBox
             value={star23}
-            text={"2 - 3 stars"}
+            text={"2 - 3"}
             onPress={() => setStar23(!star23)}
-          />
+          >
+            <StarIcon
+              color="#616161"
+              style={{
+                marginLeft: 6,
+              }}
+            />
+          </CustomCheckBox>
           <CustomCheckBox
             value={star12}
-            text={"1 - 2 stars"}
+            text={"1 - 2"}
             onPress={() => setStar12(!star12)}
-          />
+          >
+            <StarIcon
+              color="#616161"
+              style={{
+                marginLeft: 9,
+              }}
+            />
+          </CustomCheckBox>
           <CustomCheckBox
             value={star01}
-            text={"0 - 1 stars"}
+            text={"0 - 1"}
             onPress={() => setStar01(!star01)}
-          />
+          >
+            <StarIcon
+              color="#616161"
+              style={{
+                marginLeft: 9,
+              }}
+            />
+          </CustomCheckBox>
         </View>
         <View>
           <View
-            className="flex flex-row justify-between m-2"
+            className="flex flex-row justify-between my-2"
             onTouchStart={selectAll}
           >
             <Text className="font-primary-bold text-xl">Store</Text>
@@ -197,9 +245,24 @@ export default function ({ navigation, route }) {
             onPress={() => setLiho(!liho)}
           />
           <CustomCheckBox
+            value={chicha}
+            text={"CHICHA San Chen"}
+            onPress={() => setChicha(!chicha)}
+          />
+          <CustomCheckBox
+            value={gongcha}
+            text={"Gong Cha"}
+            onPress={() => setGongcha(!gongcha)}
+          />
+          <CustomCheckBox
             value={koi}
             text={"KOI The"}
             onPress={() => setKoi(!koi)}
+          />
+          <CustomCheckBox
+            value={playmade}
+            text={"Playmade"}
+            onPress={() => setPlaymade(!playmade)}
           />
         </View>
       </View>

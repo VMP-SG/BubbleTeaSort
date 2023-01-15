@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DiscoverScreen from "../screens/discover/DiscoverScreen";
 import DiscoverFilter from "../screens/discover/DiscoverFilter";
 import PostScreen from "../screens/common/PostScreen";
-import StoreScreen from "../screens/discover/StoreScreen";
+import StoreScreen from "../screens/common/StoreScreen";
 import { auth } from "../utils/firebase";
 
 const Stack = createNativeStackNavigator();
@@ -53,7 +53,7 @@ const DiscoverNavigator = () => {
           headerShown: true,
           headerBackTitle: "",
           headerTintColor: "black",
-          title: "",
+          title: route.params.display_name,
         })}
       />
     </Stack.Navigator>
