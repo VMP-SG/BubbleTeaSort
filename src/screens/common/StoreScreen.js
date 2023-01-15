@@ -114,7 +114,7 @@ export default function ({ route, navigation }) {
       >
         <Image source={img} />
         <View className="px-4 pt-2 pb-16">
-          <Text className="px-8 text-center font-primary-light text-3xl">
+          <Text className="px-8 text-center font-primary-light text-3xl mt-6">
             {`${storeData.brand} @ ${storeData.name}`}
           </Text>
           <View className="w-screen items-center justify-center">
