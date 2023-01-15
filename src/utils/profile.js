@@ -93,8 +93,6 @@ export const getActivityPercentagesAndLabels = async (posts) => {
 
   brandsPercentage.sort((a, b) => b.percentage > a.percentage);
 
-  console.log(brandsPercentage);
-
   let [top, second, third, ...fourth] = brandsPercentage;
   const placeholders = [
     { brand: "KOI", percentage: 0 },

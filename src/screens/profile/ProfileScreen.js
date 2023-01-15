@@ -32,8 +32,6 @@ const SummaryView = ({ posts }) => {
   const pastMonthCupCount = getCupsInPastMonth(posts);
   const pastMonthSpending = getSpendingInPastMonth(posts);
 
-  console.log(posts, commitsData);
-
   const [labels, setLabels] = useState(["", "", "", ""]);
   const [percentages, setPercentages] = useState([0, 0, 0, 0]);
 
