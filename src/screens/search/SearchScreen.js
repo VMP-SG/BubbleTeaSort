@@ -159,7 +159,7 @@ const SearchScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchData = async () => {
       const currLocation = await getLocation();
-      setLocation(location);
+      setLocation(currLocation);
 
       const postCount = {};
       const ratingAvg = {};
